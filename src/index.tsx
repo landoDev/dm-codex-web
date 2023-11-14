@@ -8,12 +8,19 @@ import {
   RouterProvider, 
 } from "react-router-dom"
 import ErrorPage from './error-pages';
+import SessionPage from './pages/session';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path:"/session",
+        element: <SessionPage />
+      }
+    ]
   },
 ]);
 

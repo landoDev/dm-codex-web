@@ -1,13 +1,8 @@
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import RollTable from '../components/Table';
 
 const SessionPage = () => {
-    return <div>Placeholder</div>
+    return <div id="session"><RollTable tablename="Setting a DC" headers={["test", "me"]} rows={[{content: ["hello", "there"]}]}/></div>
 }
 
 export default SessionPage;

@@ -24,19 +24,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
   }));
 
-
-interface HeaderObject {
-    header: string;
-}
-
-interface RowObject {
-    headerKey: string;
-    content: string;
+interface RollTableRow {
+    content: string[];
 }
 
 interface RollTableProps {
-    headers: HeaderObject[];
-    rows: RowObject[];
+    tablename: string;
+    headers: string[];
+    rows: RollTableRow[]
 }
 
 
@@ -46,34 +41,32 @@ interface RollTableProps {
  * Takes the headers as names and row objects and assumes they are ordered as desired
  * 
  */
-const RollTable = ({headers, rows}) => {
-
+const RollTable = ({tablename, headers, rows}: RollTableProps) => {
+    // theres gotta be a good way to yse a hashmap
     return (
         <TableContainer>
+            <h2>{tablename}</h2>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                        <StyledTableCell align="right">Calories</StyledTableCell>
-                        <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                        {headers.map((header) => (
+                            <StyledTableCell>{header}</StyledTableCell>
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
-                    <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                        {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                    <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                    <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                {rows.map(({content}) => (
+                    <StyledTableRow>
+                        {content.map((label) => (
+                            <StyledTableCell align="right">{label}</StyledTableCell>
+                        ))}
                     </StyledTableRow>
                 ))}
+                
                 </TableBody>
             </Table>
         </TableContainer>
     )
 }
+
+export default RollTable;
