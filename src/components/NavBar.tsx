@@ -6,28 +6,40 @@ const NavContainer = styled.div`
     background-color: black;
     justify-content: space-between;
     align-items: center;
+    padding: 2;
 `
 const AppTitle = styled.h1`
     color: white;
+    padding-left: 2%;
+    text-align: center;
 `
 const UserContainer = styled.div`
     flex-direction: row;
+    padding-right: 2%;
 
 `
 const DisplayName = styled.p`
     color: white;
-    text-align: center;
-    margin: auto;
+    text-align: center
 `
 
 const NavBar = () => {
     return (
         <NavContainer>
             <AppTitle>Dungeon Master's Codex</AppTitle>
-            <Stack direction="row" spacing={2}>
-                <Avatar src=""/>
-                <DisplayName>Joe Freebird</DisplayName>
-            </Stack>
+            <UserContainer>
+                {/* TODO: this should be it's own component  */}
+                {/* Will have a conditional for login/create account button */}
+                <Stack 
+                direction="row" 
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                >
+                    <Avatar src=""/>
+                    <DisplayName>Joe Freebird</DisplayName>
+                </Stack>
+            </UserContainer>
         </NavContainer>
     )
 }
