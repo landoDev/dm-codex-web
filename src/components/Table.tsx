@@ -1,11 +1,11 @@
 import { styled } from '@mui/material/styles';
+import { useEffect, useMemo, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -24,14 +24,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
   }));
 
-interface RollTableRow {
-    content: string[];
-}
-
 interface RollTableProps {
     tablename: string;
     headers: string[];
-    rows: RollTableRow[]
+    // this should be a list of objects and each object is a dynamic obj of a row
+    rows: { [key: string]: any }[];
 }
 
 
@@ -42,11 +39,11 @@ interface RollTableProps {
  * 
  */
 const RollTable = ({tablename, headers, rows}: RollTableProps) => {
-    // theres gotta be a good way to yse a hashmap
     return (
-        <TableContainer>
+        // going to pass style to this for now but will customize with props later
+        <TableContainer sx={{ margin: '1%', width: '25%' }}>
             <h2>{tablename}</h2>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table aria-label="customized table">
                 <TableHead>
                     <TableRow>
                         {headers.map((header) => (
@@ -55,14 +52,14 @@ const RollTable = ({tablename, headers, rows}: RollTableProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map(({content}) => (
+                {rows.map((row) => (
                     <StyledTableRow>
-                        {content.map((label) => (
-                            <StyledTableCell align="right">{label}</StyledTableCell>
-                        ))}
+                    {Object.values(row).map(item => (
+                        <StyledTableCell>{item}</StyledTableCell>
+                    ))}
                     </StyledTableRow>
                 ))}
-                
+    
                 </TableBody>
             </Table>
         </TableContainer>
