@@ -28,8 +28,6 @@ const NavBar = () => {
         <NavContainer>
             <AppTitle>Dungeon Master's Codex</AppTitle>
             <UserContainer>
-                {/* TODO: this should be it's own component  */}
-                {/* Will have a conditional for login/create account button */}
                 <Stack 
                 direction="row" 
                 justifyContent="center"

@@ -1,6 +1,11 @@
+import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { styled } from '@mui/material/styles';
-import RollTable from '../components/Table';
 
+import CharacterPlate from '../components/CharacterPlate';
+import RollTable from '../components/Table';
+import { Stack, Avatar, TextField } from '@mui/material';
+
+// put consttancts in their own file with ALL_CAPS
 const settingDC = [
     {
         "difficulty": "Very Easy",
@@ -28,11 +33,41 @@ const settingDC = [
     }
 ]
 
+interface CharacterPlateType {
+    name: string;
+    img?: string;
+}
+
+const BaseGrid = styled(Grid)(() => ({
+    margin: '1%'
+}))
+
 const SessionPage = () => {
+    const prototype: CharacterPlateType[] = [
+        {name: "Elrich of the Emerald"}, 
+        {name: "Kaminari"}, 
+        {name: "Thormyr"},
+        {name: "Irony Firstname"}
+    ] // this will be state
     return (
-        <div id="session">
-            <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={settingDC} />
-        </div>
+        <BaseGrid container id="session" spacing={4}>
+            <Grid xs={3}>
+                <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={settingDC} />
+            </Grid>
+            <Grid xs>
+                <Stack spacing={1}>
+                    {prototype.map(({img, name }) => (
+                        <CharacterPlate img={img} name={name} />
+                    ))}
+                </Stack>
+                <h3>Notes</h3>
+                <TextField 
+                    id="outlined-multiline-flexible"
+                    multiline
+                    fullWidth
+                />
+            </Grid>
+        </BaseGrid>
     )
 }
 

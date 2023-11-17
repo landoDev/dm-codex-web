@@ -41,7 +41,7 @@ interface RollTableProps {
 const RollTable = ({tablename, headers, rows}: RollTableProps) => {
     return (
         // going to pass style to this for now but will customize with props later
-        <TableContainer sx={{ margin: '1%', width: '25%' }}>
+        <TableContainer>
             <h2>{tablename}</h2>
             <Table aria-label="customized table">
                 <TableHead>
