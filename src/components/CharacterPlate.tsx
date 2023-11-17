@@ -1,16 +1,21 @@
 import styled from '@emotion/styled';
-import { Avatar, Stack } from '@mui/material'
+import { Avatar, Stack } from '@mui/material';
+import SecurityIcon from '@mui/icons-material/Security';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+
 
 export type CharacterPlate = {
     name: string;
     img?: string;
     ac?: string;
+    health?: number;
 }
 
 interface CharacterPlateProps {
     name: string;
     img?: string;
     ac?: string;
+    health?: number;
 }
 
 const CharacterPlateContainer = styled.div`
@@ -28,11 +33,13 @@ const CharacterText = styled.p`
 
 const CharacterElement = styled.div`
     align-self: center;
+    justify-content: center;
     width: 20%
 `
 
 
-const CharacterPlate = ({ img, name, ac }: CharacterPlateProps) => {
+const CharacterPlate = ({ img, name, ac, health = 0 }: CharacterPlateProps) => {
+    const healthPlaceholer = 0 // will use state
     return (
         <CharacterPlateContainer>
             <Stack
@@ -48,7 +55,13 @@ const CharacterPlate = ({ img, name, ac }: CharacterPlateProps) => {
                     <CharacterText>{name}</CharacterText>
                 </CharacterElement>
                 <CharacterElement>
-                    <CharacterText>AC:{ac}</CharacterText>
+                    <CharacterText><SecurityIcon />{ac || "N/A"}</CharacterText>
+                </CharacterElement>
+                <CharacterElement>
+                    <CharacterText>
+                        <LocalHospitalIcon />
+                        {healthPlaceholer}/{health}
+                    </CharacterText>
                 </CharacterElement>
             </Stack>
         </CharacterPlateContainer>
