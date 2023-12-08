@@ -35,6 +35,7 @@ const NavBar = () => {
                 spacing={2}
                 >
                     <Avatar src=""/>
+                    {/* TODO: use Link here to navigate to user details (way off in the distance) */}
                     <DisplayName>Joe Freebird</DisplayName>
                 </Stack>
             </UserContainer>
