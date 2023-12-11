@@ -40,8 +40,9 @@ interface RollTableProps {
  */
 const RollTable = ({tablename, headers, rows}: RollTableProps) => {
     return (
-        // going to pass style to this for now but will customize with props later
-        <TableContainer>
+        // going to pass style to this for now but will customize with props later 
+        // when you do that make sure you also allow the component to take relevant style props when I call it 
+        <TableContainer style={{maxWidth: '300px'}}>
             <h2>{tablename}</h2>
             <Table aria-label="customized table">
                 <TableHead>

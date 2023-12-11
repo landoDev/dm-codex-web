@@ -11,17 +11,23 @@ interface FifthEditionResult {
     url: string
 }
 
+
 const SessionSearchBar = () => {
-    const [spellList, setSpellList] = useState([]);
+    const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
     const [spellQuery, setSpellQuery] = useState();
     const [monsterList, setMonsterList] = useState([]);
     const [monsterQuery, setMonsterQuery] = useState();
+
+    const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
+        /** takes list of string elements and compares them to query string to filter */
+        return list.filter(element => /typescript/i.exec(query))
+    }
 
     // TODO NEXT: create filter function to use with setQuery and filter down (chance to practice and learn re)
     // https://medium.com/@dingezzz/how-to-use-regex-in-typescript-870d8e27fe09
     useEffect(() => {
         // would redux be useful to keep this in context?? and consistent. revist me 
-        // get spells if not retrieved
+        // get spells and monsters if not retrieved
         if (!spellList.length){
             axios.get(`${FIFTH_EDITION_API}/spells`)
             .then(response => {
@@ -37,6 +43,12 @@ const SessionSearchBar = () => {
             .catch(error => console.log(error))
         }
     }, []);
+
+    // useEffect(() => {
+    //     if (spellList.length && spellQuery) {
+    //         setSpellList(filterListFromQuery(spellList, spellQuery))
+    //     }
+    // }, [spellQuery])
 
     return(
         <>
