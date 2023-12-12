@@ -10,20 +10,22 @@ import RollTable from '../components/RollTable';
 import SessionSearchBar from '../components/SessionSearchBar';
 
 import { SETTING_DC } from '../static/screenConstants';
+import SessionFooter from '../components/SessionFooter';
 
 interface CharacterPlateType {
     name: string;
     img?: string;
 }
-
-type PinnedContent = {
-    index: string;
+// TODO: create type files if they need to be exported and shared
+export type PinnedContent = {
+    contentName: string;
     url: string | null; 
 }
 
 // TODO: make a shared file so I can use this framing elsewhere
 const BaseGrid = styled(Grid)(() => ({
-    margin: '1%'
+    margin: '1%',
+    flexDirection: 'column'
 }))
 
 const SessionPage = () => {
@@ -44,52 +46,52 @@ const SessionPage = () => {
 
     return (
         <BaseGrid container id="session-page-container" spacing={4}>
-            <Grid xs={3}>
-                {/* TODO: add the rest of the roll tables */}
-                <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={SETTING_DC} />
-                <Stack id="info-modals">
-                    {/* actions in combat modal button here */}
-                    {/* conditions modal button here */}
-                </Stack>
-            </Grid>
-            <Grid xs>
-                {/* may put this search section in it's owncomponent */}
-                <Grid xs display="flex" justifyContent="space-between">
-                <Tabs
-                    textColor="secondary"
-                    indicatorColor="secondary"
-                    aria-label="secondary tabs example"
-                    style={{
-                        alignSelf: 'end'
-                    }}
-                    value={selectedTab}
-                    onChange={handleTabChange}
-                >
-                    <Tab label="Players" value="players" />
-                    <Tab label="NPCs" value="npcs" />
-                </Tabs>
-                <SessionSearchBar setPinnedContent={setPinnedContent} />
+            <Grid container id="session-page-body" spacing={4}>
+                <Grid xs={3}>
+                    {/* TODO: add the rest of the roll tables */}
+                    <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={SETTING_DC} />
+                    <Stack id="info-modals">
+                        {/* actions in combat modal button here */}
+                        {/* conditions modal button here */}
+                    </Stack>
                 </Grid>
-                <Stack spacing={1} marginTop="2%" marginBottom="2%">
-                    {!!prototype ?? 
-                        <div>No Players Yet</div>
-                    }
-                    {/* NOTE: will need to know if players or npcs are selected and filter it */}
-                    {prototype?.map(({img, name }) => (
-                        <CharacterPlate key={name} img={img} name={name} />
-                    ))}
-                </Stack>
-                <Button startIcon={<AddIcon />}>Add Player</Button>
-                <h3>Notes</h3>
-                <TextField 
-                    id="outlined-multiline-flexible"
-                    multiline
-                    fullWidth
-                />
+                <Grid xs>
+                    {/* may put this search section in it's owncomponent */}
+                    <Grid xs display="flex" justifyContent="space-between">
+                    <Tabs
+                        textColor="secondary"
+                        indicatorColor="secondary"
+                        aria-label="secondary tabs example"
+                        style={{
+                            alignSelf: 'end'
+                        }}
+                        value={selectedTab}
+                        onChange={handleTabChange}
+                    >
+                        <Tab label="Players" value="players" />
+                        <Tab label="NPCs" value="npcs" />
+                    </Tabs>
+                    <SessionSearchBar setPinnedContent={setPinnedContent} />
+                    </Grid>
+                    <Stack spacing={1} marginTop="2%" marginBottom="2%">
+                        {!!prototype ?? 
+                            <div>No Players Yet</div>
+                        }
+                        {/* NOTE: will need to know if players or npcs are selected and filter it */}
+                        {prototype?.map(({img, name }) => (
+                            <CharacterPlate key={name} img={img} name={name} />
+                        ))}
+                    </Stack>
+                    <Button startIcon={<AddIcon />}>Add Player</Button>
+                    <h3>Notes</h3>
+                    <TextField 
+                        id="outlined-multiline-flexible"
+                        multiline
+                        fullWidth
+                    />
+                </Grid>
             </Grid>
-            <footer>
-                {pinnedContent?.map(content => <div>{content.index}</div>)}
-            </footer>
+            <SessionFooter pinnedContent={pinnedContent} />
         </BaseGrid>
     )
 }

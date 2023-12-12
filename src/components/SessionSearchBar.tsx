@@ -3,17 +3,18 @@ import axios from "axios";
 import { FIFTH_EDITION_API } from "../static/apiConstants";
 import { List, ListItem, ListItemButton, ListItemText, Stack } from "@mui/material";
 import SearchInput from "./SearchInput";
+import { PinnedContent } from "../pages/session";
 
 
 interface FifthEditionResult {
     index: string;
     name: string;
-    url: string
-}
+    url: string;
+};
 
 interface SessionSearchBarProps {
-    setPinnedContent: (value: any) => void
-}
+    setPinnedContent: (value: any) => void;
+};
 
 const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
@@ -33,10 +34,14 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
         })
     }
 
-    // const handlePinElement = () => {
-    //     console.log(event)
-    //     console.log(element)
-    // }
+    const handlePinElement = (element: FifthEditionResult) => {
+        /* Takes the FifthEditionResult that's mapped and structures it to fit the `PinnedContent` type */
+        const newContent = {
+            contentName: element.name,
+            contentUrl: element.url
+        }
+        setPinnedContent((pinnedContent: PinnedContent[]) => [...pinnedContent, newContent])
+    }
 
     useEffect(() => {
         // would redux be useful to keep this in context?? and consistent. revist me 
@@ -95,7 +100,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                         >
                         {filteredSpellList?.map((spell: FifthEditionResult)=> {
                             return (
-                                <ListItemButton key={spell.index} onClick={(e) => console.log(e)}>
+                                <ListItemButton key={spell.index} onClick={() => handlePinElement(spell)}>
                                    <ListItemText>{spell.name}</ListItemText>
                                 </ListItemButton>
                                     )
@@ -125,7 +130,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                         >
                             {filteredMonsterList?.map((monster: FifthEditionResult) => {
                                 return (
-                                    <ListItemButton key={monster.index} onClick={(e) => console.log(e)}>
+                                    <ListItemButton key={monster.index} onClick={() => handlePinElement(monster)}>
                                         <ListItemText>{monster.name}</ListItemText>
                                     </ListItemButton>
                                 )
