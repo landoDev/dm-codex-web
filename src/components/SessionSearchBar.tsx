@@ -15,12 +15,13 @@ interface FifthEditionResult {
 const SessionSearchBar = () => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
     const [spellQuery, setSpellQuery] = useState();
+    const [filteredSpells, setFilteredSpells] = useState<FifthEditionResult[]>([]);
     const [monsterList, setMonsterList] = useState([]);
     const [monsterQuery, setMonsterQuery] = useState();
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
-        return list.filter(element => /typescript/i.exec(query))
+        return list.filter(({name}) => name.toLowerCase().includes(query))
     }
 
     // TODO NEXT: create filter function to use with setQuery and filter down (chance to practice and learn re)
@@ -44,11 +45,11 @@ const SessionSearchBar = () => {
         }
     }, []);
 
-    // useEffect(() => {
-    //     if (spellList.length && spellQuery) {
-    //         setSpellList(filterListFromQuery(spellList, spellQuery))
-    //     }
-    // }, [spellQuery])
+    useEffect(() => {
+        if (spellQuery) {
+            setFilteredSpells(filterListFromQuery(spellList, spellQuery))
+        } 
+    }, [spellQuery])
 
     return(
         <>
@@ -74,14 +75,14 @@ const SessionSearchBar = () => {
                                 '& ul': { padding: 0 },
                             }}
                         >
-                        {spellList?.map((spell: FifthEditionResult)=> {
+                        {filteredSpells?.map((spell: FifthEditionResult)=> {
                             return (
                                 <ListItem key={spell.index}>
                                    <ListItemText>{spell.name}</ListItemText>
                                 </ListItem>
                                     )
                                 })}
-                        {!spellList && <ListItem>No Matching Spells</ListItem>}
+                        {!filteredSpells && <ListItem>No Matching Spells</ListItem>}
                         </List>
                 
                     }
