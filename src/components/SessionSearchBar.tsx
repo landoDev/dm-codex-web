@@ -14,20 +14,25 @@ interface FifthEditionResult {
 
 const SessionSearchBar = () => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
-    const [spellQuery, setSpellQuery] = useState();
-    const [filteredSpells, setFilteredSpells] = useState<FifthEditionResult[]>([]);
-    const [monsterList, setMonsterList] = useState([]);
-    const [monsterQuery, setMonsterQuery] = useState();
+    const [spellQuery, setSpellQuery] = useState<string>();
+    const [filteredSpellList, setFilteredSpellList] = useState<FifthEditionResult[]>([]);
+    const [monsterList, setMonsterList] = useState<FifthEditionResult[]>([]);
+    const [monsterQuery, setMonsterQuery] = useState<string>();
+    const [filteredMonsterList, setFilteredMonsterList] = useState<FifthEditionResult[]>();
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
-        return list.filter(({name}) => name.toLowerCase().includes(query))
+        return list.filter(({name}) => {
+            // creates pattern with positive lookahead, matches any character except line break, and matches 0 or more instances of a character
+            const pattern = query.split("").map(x => `(?=.*${x})`).join("")
+            const regex = new RegExp(`${pattern}`, "gi") // global and case insensitive
+            return name.match(regex)
+        })
     }
 
-    // TODO NEXT: create filter function to use with setQuery and filter down (chance to practice and learn re)
-    // https://medium.com/@dingezzz/how-to-use-regex-in-typescript-870d8e27fe09
     useEffect(() => {
         // would redux be useful to keep this in context?? and consistent. revist me 
+        // would allow this to be fetched once on website visit and then referenced through context?
         // get spells and monsters if not retrieved
         if (!spellList.length){
             axios.get(`${FIFTH_EDITION_API}/spells`)
@@ -47,9 +52,15 @@ const SessionSearchBar = () => {
 
     useEffect(() => {
         if (spellQuery) {
-            setFilteredSpells(filterListFromQuery(spellList, spellQuery))
+            setFilteredSpellList(filterListFromQuery(spellList, spellQuery))
         } 
     }, [spellQuery])
+
+    useEffect(() => {
+        if (monsterQuery) {
+            setFilteredMonsterList(filterListFromQuery(monsterList, monsterQuery))
+        }
+    })
 
     return(
         <>
@@ -75,14 +86,14 @@ const SessionSearchBar = () => {
                                 '& ul': { padding: 0 },
                             }}
                         >
-                        {filteredSpells?.map((spell: FifthEditionResult)=> {
+                        {filteredSpellList?.map((spell: FifthEditionResult)=> {
                             return (
                                 <ListItem key={spell.index}>
                                    <ListItemText>{spell.name}</ListItemText>
                                 </ListItem>
                                     )
                                 })}
-                        {!filteredSpells && <ListItem>No Matching Spells</ListItem>}
+                        {!filteredSpellList && <ListItem>No Matching Spells</ListItem>}
                         </List>
                 
                     }
@@ -105,14 +116,14 @@ const SessionSearchBar = () => {
                                 '& ul': { padding: 0 },
                             }}
                         >
-                            {monsterList?.map((monster: FifthEditionResult) => {
+                            {filteredMonsterList?.map((monster: FifthEditionResult) => {
                                 return (
                                     <ListItem key={monster.index}>
                                         <ListItemText>{monster.name}</ListItemText>
                                     </ListItem>
                                 )
                             })}
-                            {!monsterList && <ListItem>No Matching Monsters</ListItem>}
+                            {!filteredMonsterList && <ListItem>No Matching Monsters</ListItem>}
                         </List>
                      }
                 </div>
