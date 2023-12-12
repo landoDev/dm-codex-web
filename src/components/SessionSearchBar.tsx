@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { FIFTH_EDITION_API } from "../static/apiConstants";
-import { List, ListItem, ListItemText, Stack } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Stack } from "@mui/material";
 import SearchInput from "./SearchInput";
 
 
@@ -11,8 +11,11 @@ interface FifthEditionResult {
     url: string
 }
 
+interface SessionSearchBarProps {
+    setPinnedContent: (value: any) => void
+}
 
-const SessionSearchBar = () => {
+const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
     const [spellQuery, setSpellQuery] = useState<string>();
     const [filteredSpellList, setFilteredSpellList] = useState<FifthEditionResult[]>([]);
@@ -29,6 +32,11 @@ const SessionSearchBar = () => {
             return name.match(regex)
         })
     }
+
+    // const handlePinElement = () => {
+    //     console.log(event)
+    //     console.log(element)
+    // }
 
     useEffect(() => {
         // would redux be useful to keep this in context?? and consistent. revist me 
@@ -60,7 +68,7 @@ const SessionSearchBar = () => {
         if (monsterQuery) {
             setFilteredMonsterList(filterListFromQuery(monsterList, monsterQuery))
         }
-    })
+    }, [monsterQuery])
 
     return(
         <>
@@ -74,7 +82,6 @@ const SessionSearchBar = () => {
                     {/* Add component that will open up and show what's available
                     filter spells based on text field input, `spellQuery` */}
                     {spellQuery &&
-                        // TODO: definitely make theses boxes their own ui components
                         <List
                             sx={{
                                 width: '100%',
@@ -88,9 +95,9 @@ const SessionSearchBar = () => {
                         >
                         {filteredSpellList?.map((spell: FifthEditionResult)=> {
                             return (
-                                <ListItem key={spell.index}>
+                                <ListItemButton key={spell.index} onClick={(e) => console.log(e)}>
                                    <ListItemText>{spell.name}</ListItemText>
-                                </ListItem>
+                                </ListItemButton>
                                     )
                                 })}
                         {!filteredSpellList && <ListItem>No Matching Spells</ListItem>}
@@ -118,9 +125,9 @@ const SessionSearchBar = () => {
                         >
                             {filteredMonsterList?.map((monster: FifthEditionResult) => {
                                 return (
-                                    <ListItem key={monster.index}>
+                                    <ListItemButton key={monster.index} onClick={(e) => console.log(e)}>
                                         <ListItemText>{monster.name}</ListItemText>
-                                    </ListItem>
+                                    </ListItemButton>
                                 )
                             })}
                             {!filteredMonsterList && <ListItem>No Matching Monsters</ListItem>}

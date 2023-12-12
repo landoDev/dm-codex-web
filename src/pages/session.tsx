@@ -16,6 +16,11 @@ interface CharacterPlateType {
     img?: string;
 }
 
+type PinnedContent = {
+    index: string;
+    url: string | null; 
+}
+
 // TODO: make a shared file so I can use this framing elsewhere
 const BaseGrid = styled(Grid)(() => ({
     margin: '1%'
@@ -30,7 +35,7 @@ const SessionPage = () => {
     ] // this will be state
     const [selectedTab, setSelectedTab] = useState<string>("players");
     // TODO: users that select a spell, item or monster have them pinned here and those render in the footer
-    const [pinnedContent, setPinnedContent] = useState(); 
+    const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
 
 
     const handleTabChange = (event: React.SyntheticEvent, newTab: string) => {
@@ -63,7 +68,7 @@ const SessionPage = () => {
                     <Tab label="Players" value="players" />
                     <Tab label="NPCs" value="npcs" />
                 </Tabs>
-                <SessionSearchBar />
+                <SessionSearchBar setPinnedContent={setPinnedContent} />
                 </Grid>
                 <Stack spacing={1} marginTop="2%" marginBottom="2%">
                     {!!prototype ?? 
@@ -82,6 +87,9 @@ const SessionPage = () => {
                     fullWidth
                 />
             </Grid>
+            <footer>
+                {pinnedContent?.map(content => <div>{content.index}</div>)}
+            </footer>
         </BaseGrid>
     )
 }
