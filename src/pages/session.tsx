@@ -29,6 +29,7 @@ const BaseGrid = styled(Grid)(() => ({
 }))
 
 const SessionPage = () => {
+    // NOTE: Simpler to just have one character table with a flag/column denoting if they are NPC or not
     const prototype: CharacterPlateType[] = [
         {name: "Elrich of the Emerald"}, 
         {name: "Kaminari"}, 
@@ -49,6 +50,7 @@ const SessionPage = () => {
             <Grid container id="session-page-body" spacing={4}>
                 <Grid xs={3}>
                     {/* TODO: add the rest of the roll tables */}
+                    {/* NOTE: order matters, if that isn't in the docstring for RollTable, add it */}
                     <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={SETTING_DC} />
                     <Stack id="info-modals">
                         {/* actions in combat modal button here */}
