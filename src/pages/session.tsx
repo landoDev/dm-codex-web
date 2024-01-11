@@ -36,15 +36,16 @@ const SessionPage = () => {
         {name: "Thormyr"},
         {name: "Irony Firstname"}
     ] // this will be state
-    const [selectedTab, setSelectedTab] = useState<string>("players");
+    const NPCplaceholder: [] = [];
+    // TODO: Need to decide how I want to handle players and npcs. Should they be session scoped?
+    // IDEALLY, each session wouldn't show all characters, just the ones relevant to that session
+    // Ask Alex what he'd do in this scenario... I was thinking about having a meta column 
+    // the meta column would have this sessions character ids and would filter the players (repped by prototype)
+    // then each session would only have the relevant characters while the campaign could relate to character tables
+    // players and npcs MUST be in campaign scope
+  
     // TODO: users that select a spell, item or monster have them pinned here and those render in the footer
     const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
-
-
-    const handleTabChange = (event: React.SyntheticEvent, newTab: string) => {
-        setSelectedTab(newTab)
-    }
-
     return (
         <BaseGrid container id="session-page-container" spacing={4}>
             <Grid container id="session-page-body" spacing={4}>
@@ -59,22 +60,10 @@ const SessionPage = () => {
                 </Grid>
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
-                    <Grid xs display="flex" justifyContent="space-between">
-                    <Tabs
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                        aria-label="secondary tabs example"
-                        style={{
-                            alignSelf: 'end'
-                        }}
-                        value={selectedTab}
-                        onChange={handleTabChange}
-                    >
-                        <Tab label="Players" value="players" />
-                        <Tab label="NPCs" value="npcs" />
-                    </Tabs>
+                    <Grid xs display="flex" justifyContent="flex-end">
                     <SessionSearchBar setPinnedContent={setPinnedContent} />
                     </Grid>
+                    <h3>Players</h3>
                     <Stack spacing={1} marginTop="2%" marginBottom="2%">
                         {!!prototype ?? 
                             <div>No Players Yet</div>
@@ -84,7 +73,19 @@ const SessionPage = () => {
                             <CharacterPlate key={name} img={img} name={name} />
                         ))}
                     </Stack>
-                    <Button startIcon={<AddIcon />}>Add Player</Button>
+                    <Button startIcon={<AddIcon />}>Add Player to Session</Button>
+                    <h3>NPCs</h3>
+                    <Stack spacing={1} marginTop="2%" marginBottom="2%">
+                        {!!NPCplaceholder &&
+                            <div>No NPCS</div>
+                        }
+                        {/* NOTE: will need to know if players or npcs are selected and filter it */}
+                        {NPCplaceholder?.map(({img, name }) => (
+                            <CharacterPlate key={name} img={img} name={name} />
+                        ))}
+                    </Stack>
+                    {/* NOTE: these could be a reusable component, i'll use the same style for add campaign and session on other pages */}
+                    <Button startIcon={<AddIcon />}>Add NPC to Session</Button>
                     <h3>Notes</h3>
                     <TextField 
                         id="outlined-multiline-flexible"

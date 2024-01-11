@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import styled from '@emotion/styled';
 import { Avatar, Stack } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';
@@ -39,7 +41,7 @@ const CharacterElement = styled.div`
 
 
 const CharacterPlate = ({ img, name, ac, health = 0 }: CharacterPlateProps) => {
-    const healthPlaceholer = 0 // will use state
+    const [currentHealth, setCurrentHealth] = useState<number>(health);
     return (
         <CharacterPlateContainer>
             <Stack
@@ -60,7 +62,7 @@ const CharacterPlate = ({ img, name, ac, health = 0 }: CharacterPlateProps) => {
                 <CharacterElement>
                     <CharacterText>
                         <LocalHospitalIcon />
-                        {healthPlaceholer}/{health}
+                        {currentHealth}/{health}
                     </CharacterText>
                 </CharacterElement>
             </Stack>
