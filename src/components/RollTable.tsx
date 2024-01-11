@@ -26,23 +26,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 interface RollTableProps {
     tablename: string;
-    headers: string[];
     // this should be a list of objects and each object is a dynamic obj of a row
-    rows: { [key: string]: any }[];
+    rows: { [key: string]: string }[];
 }
 
 
 
 /**
  * RollTable serves to render the dm tables like `Setting A DC` and random encounter tables.
- * Takes the headers as names and row objects and assumes they are ordered as desired
+ * Takes row objects and assumes they are ordered as desired. 
+ * **BE SURE** that you are passing an array of objects where the keys are the headers and values are each corresponding row value
  * 
  */
-const RollTable = ({tablename, headers, rows}: RollTableProps) => {
+const RollTable = ({tablename, rows}: RollTableProps) => {
+
+    const headers = Object.keys(rows[0]).map(key => key.toUpperCase())
+    
     return (
         // going to pass style to this for now but will customize with props later 
         // when you do that make sure you also allow the component to take relevant style props when I call it 
-        <TableContainer style={{maxWidth: '300px'}}>
+        <TableContainer style={{maxWidth: '500px'}}>
             <h2>{tablename}</h2>
             <Table aria-label="customized table">
                 <TableHead>

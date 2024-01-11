@@ -9,7 +9,7 @@ import CharacterPlate from '../components/CharacterPlate';
 import RollTable from '../components/RollTable';
 import SessionSearchBar from '../components/SessionSearchBar';
 
-import { SETTING_DC } from '../static/screenConstants';
+import { DAMAGE_SEVERITY, SETTING_DC } from '../static/screenConstants';
 import SessionFooter from '../components/SessionFooter';
 
 interface CharacterPlateType {
@@ -49,19 +49,17 @@ const SessionPage = () => {
     return (
         <BaseGrid container id="session-page-container" spacing={4}>
             <Grid container id="session-page-body" spacing={4}>
-                <Grid xs={3}>
+                <Grid xs={3} id="roll-tables">
                     {/* TODO: add the rest of the roll tables */}
                     {/* NOTE: order matters, if that isn't in the docstring for RollTable, add it */}
-                    <RollTable tablename="Setting a DC" headers={["Difficulty", "DC"]} rows={SETTING_DC} />
-                    <Stack id="info-modals">
-                        {/* actions in combat modal button here */}
-                        {/* conditions modal button here */}
-                    </Stack>
+                    <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
+                    <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
+
                 </Grid>
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
                     <Grid xs display="flex" justifyContent="flex-end">
-                    <SessionSearchBar setPinnedContent={setPinnedContent} />
+                        <SessionSearchBar setPinnedContent={setPinnedContent} />
                     </Grid>
                     <h3>Players</h3>
                     <Stack spacing={1} marginTop="2%" marginBottom="2%">
@@ -86,12 +84,22 @@ const SessionPage = () => {
                     </Stack>
                     {/* NOTE: these could be a reusable component, i'll use the same style for add campaign and session on other pages */}
                     <Button startIcon={<AddIcon />}>Add NPC to Session</Button>
+                    {/* TODO: make me and all other h3s a reusable styled component */}
                     <h3>Notes</h3>
                     <TextField 
                         id="outlined-multiline-flexible"
                         multiline
                         fullWidth
                     />
+                    {/* TODO: since this opens modals to display their info, might be good to make this it's own component too */}
+                    <Grid display='flex' justifyContent='space-evenly' spacing={1} id="info-modals" style={{ marginTop: '2%'}}>
+                        {/* TODO: obviously add the modals, when building out this separate component */}
+                        {/* actions in combat modal button here */}
+                        <div>Actions in Combat</div>
+                        {/* conditions modal button here */}
+                        <div>Conditions</div>
+                        <div>Cover</div>
+                    </Grid>
                 </Grid>
             </Grid>
             <SessionFooter pinnedContent={pinnedContent} />
