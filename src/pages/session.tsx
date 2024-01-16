@@ -11,6 +11,7 @@ import SessionSearchBar from '../components/SessionSearchBar';
 
 import { DAMAGE_SEVERITY, SETTING_DC } from '../static/screenConstants';
 import SessionFooter from '../components/SessionFooter';
+import { SessionPageContainer } from '../styles/session.styles';
 
 interface CharacterPlateType {
     name: string;
@@ -22,12 +23,6 @@ export type PinnedContent = {
     url: string | null; 
 }
 
-// TODO: make a shared file so I can use this framing elsewhere
-const BaseGrid = styled(Grid)(() => ({
-    margin: '1%',
-    flexDirection: 'column'
-}))
-
 const SessionPage = () => {
     // NOTE: Simpler to just have one character table with a flag/column denoting if they are NPC or not
     const prototype: CharacterPlateType[] = [
@@ -36,25 +31,20 @@ const SessionPage = () => {
         {name: "Thormyr"},
         {name: "Irony Firstname"}
     ] // this will be state
-    const NPCplaceholder: [] = [];
-    // TODO: Need to decide how I want to handle players and npcs. Should they be session scoped?
-    // IDEALLY, each session wouldn't show all characters, just the ones relevant to that session
-    // Ask Alex what he'd do in this scenario... I was thinking about having a meta column 
-    // the meta column would have this sessions character ids and would filter the players (repped by prototype)
-    // then each session would only have the relevant characters while the campaign could relate to character tables
-    // players and npcs MUST be in campaign scope
-  
-    // TODO: users that select a spell, item or monster have them pinned here and those render in the footer
+    const NPCplaceholder: CharacterPlateType[] = [];
+    // NOTE: BE will store a List column on session with all it's character IDs (which are campaign scoped)
+
+    // pinned content is the spells and monsters the DM has selected to reference on this page.
+        // ideally, this would stick when reloaded but that's stretch as of this commit
     const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
+
     return (
-        <BaseGrid container id="session-page-container" spacing={4}>
+        <SessionPageContainer container id="session-page-container" spacing={4}>
             <Grid container id="session-page-body" spacing={4}>
                 <Grid xs={3} id="roll-tables">
                     {/* TODO: add the rest of the roll tables */}
-                    {/* NOTE: order matters, if that isn't in the docstring for RollTable, add it */}
                     <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
                     <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
-
                 </Grid>
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
@@ -103,7 +93,7 @@ const SessionPage = () => {
                 </Grid>
             </Grid>
             <SessionFooter pinnedContent={pinnedContent} />
-        </BaseGrid>
+        </SessionPageContainer>
     )
 }
 
