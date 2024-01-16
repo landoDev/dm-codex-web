@@ -51,3 +51,30 @@ export const DAMAGE_SEVERITY = [
         "deadly": "24d10",
     }
 ];
+
+export const SKILLS = [
+    {
+        "ability": "Strength",
+        "skills": "Athletics",
+    },
+    {   
+        "ability": "Dexterity",
+        "skills": "Acrobatics, Sleight of Hand, Stealth",
+    },
+    {
+        "ability": "Constitution",
+        "skills": "N/A",
+    },
+    {
+        "ability": "Intelligence",
+        "skills": "Arcana, History, Investigation, Nature, Religion",
+    },
+    {
+        "ability": "Wisdom",
+        "skills": "Animal Handling, Insight, Medicine, Perception, Surviva",
+    },
+    {
+        "ability": "Charisma",
+        "skills": "Deception, Intimidation, Performance, Persuasion",
+    },
+]
