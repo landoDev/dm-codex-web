@@ -78,3 +78,12 @@ export const SKILLS = [
         "skills": "Deception, Intimidation, Performance, Persuasion",
     },
 ]
+
+// TODO: put above damage and severity
+export const EXHAUSTION = [
+
+]
+
+export const COVER = [
+    
+]

@@ -77,14 +77,19 @@ const SessionPage = () => {
                     <Button startIcon={<AddIcon />}>Add NPC(s) to Session</Button>
                     {/* TODO: make me and all other h3s a reusable styled component */}
                     {/* TODO: since this opens modals to display their info, might be good to make this it's own component too */}
-                    <h3>Combat Info</h3>
+                    <h3>Info Panels</h3>
                     <Grid id="info-modals" display='flex' justifyContent='space-evenly' spacing={1} style={{ marginTop: '2%'}}>
                         {/* TODO: obviously add the modals, when building out this separate component */}
                         {/* actions in combat modal button here */}
                         <div>Actions in Combat</div>
                         {/* conditions modal button here */}
                         <div>Conditions</div>
-                        <div>Cover</div>
+                        <div>Common Expenses</div>
+                        <div>Wild Magic Table</div>
+                        <div>Travel Paces</div>
+                        <div>Improvizing Damage</div>
+                        <div>Destroying Objects</div>
+                        <div>Madness Tables</div>
                     </Grid>
                     <h3>Notes</h3>
                     <TextField 
