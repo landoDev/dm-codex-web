@@ -61,9 +61,6 @@ const SessionPage = () => {
                         <Grid width='35%'>
                             <h3>NPCs</h3>
                             <Stack spacing={1} marginTop="2%" marginBottom="2%">
-                                {/* {!!npcs &&
-                                    <div>No NPCS</div>
-                                } */}
                                 {/* NOTE: will need to know if players or npcs are selected and filter it */}
                                 {npcs?.map(({img, name }) => (
                                     <CharacterPlate key={name} img={img} name={name} />
@@ -80,8 +77,8 @@ const SessionPage = () => {
                                     fullWidth
                                 />
                         </Grid>
-
                     </Grid>
+                    {/* TODO: you should go through and clean up the inline styles and breaking each piece of this page out like modal tables */}
                     <ModalTables />
                     <Grid xs={3} id="roll-tables" display='flex' flexWrap='wrap' justifyContent='space-between' marginTop='2%'>
                         <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
