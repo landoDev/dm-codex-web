@@ -11,7 +11,7 @@ import SessionSearchBar from '../components/SessionSearchBar';
 import { COVER, DAMAGE_SEVERITY, EXHAUSTION, SETTING_DC, SKILLS } from '../static/screenConstants';
 import SessionFooter from '../components/SessionFooter';
 import { SessionPageContainer } from '../styles/session.styles';
-import { GridOn } from '@mui/icons-material';
+import ModalTables from '../components/ModalTables';
 
 interface CharacterPlateType {
     name: string;
@@ -51,9 +51,6 @@ const SessionPage = () => {
                         <Grid width='35%'>
                             <h3>Players</h3>
                             <Stack spacing={1} marginTop="2%" marginBottom="2%">
-                                {!!playerCharacters ?? 
-                                    <div>No Players Yet</div>
-                                }
                                 {/* NOTE: will need to know if players or npcs are selected and filter it */}
                                 {playerCharacters?.map(({img, name }) => (
                                     <CharacterPlate key={name} img={img} name={name} />
@@ -85,21 +82,7 @@ const SessionPage = () => {
                         </Grid>
 
                     </Grid>
-                    {/* TODO: make me and all other h3s a reusable styled component */}
-                    {/* TODO: since this opens modals to display their info, might be good to make this it's own component too */}
-                    <Grid id="info-modals" display='flex' justifyContent='space-evenly' spacing={1} style={{ marginTop: '3%', marginBottom: '3%'}}>
-                        {/* TODO: obviously add the modals, when building out this separate component */}
-                        {/* actions in combat modal button here */}
-                        <div>Actions in Combat</div>
-                        {/* conditions modal button here */}
-                        <div>Conditions</div>
-                        <div>Common Expenses</div>
-                        <div>Wild Magic Table</div>
-                        <div>Travel Paces</div>
-                        <div>Improvizing Damage</div>
-                        <div>Destroying Objects</div>
-                        <div>Madness Tables</div>
-                    </Grid>
+                    <ModalTables />
                     <Grid xs={3} id="roll-tables" display='flex' flexWrap='wrap' justifyContent='space-between' marginTop='2%'>
                         <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
                         <RollTable tablename='Exhaustion' rows={EXHAUSTION} />
