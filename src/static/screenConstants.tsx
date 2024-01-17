@@ -81,9 +81,44 @@ export const SKILLS = [
 
 // TODO: put above damage and severity
 export const EXHAUSTION = [
+    {
+        "level": "1",
+        "effect": "Disadvantage on ability checks",
+    },
+    {
+        "level": "2",
+        "effect": "Speed halved",
+    },
+    {
+        "level": "3",
+        "effect": "	Disadvantage on attack rolls and saving throws",
+    },
+    {
+        "level": "4",
+        "effect": "Hit point maximum halved",
+    },
+    {
+        "level": "5",
+        "effect": "Speed reduced to 0",
+    },
+    {
+        "level": "6",
+        "effect": "Death",
+    },
 
 ]
 
 export const COVER = [
-    
+    {
+        "type": "1/2 cover",
+        "effect": "+2 bonus to AC and Dexterity saving throws against attacks and effects that originate on the opposite side of the cover.",
+    },
+    {
+        "type": "3/4 cover",
+        "effect": "+5 bonus to AC and Dexterity saving throws against attacks and effects that originate on the opposite side of the cover.",
+    },
+    {
+        "type": "Full cover",
+        "effect": "	Can't be targeted by an attack or a spell.",
+    },
 ]

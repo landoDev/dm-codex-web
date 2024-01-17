@@ -8,9 +8,10 @@ import CharacterPlate from '../components/CharacterPlate';
 import RollTable from '../components/RollTable';
 import SessionSearchBar from '../components/SessionSearchBar';
 
-import { DAMAGE_SEVERITY, SETTING_DC, SKILLS } from '../static/screenConstants';
+import { COVER, DAMAGE_SEVERITY, EXHAUSTION, SETTING_DC, SKILLS } from '../static/screenConstants';
 import SessionFooter from '../components/SessionFooter';
 import { SessionPageContainer } from '../styles/session.styles';
+import { GridOn } from '@mui/icons-material';
 
 interface CharacterPlateType {
     name: string;
@@ -41,44 +42,52 @@ const SessionPage = () => {
     return (
         <SessionPageContainer container id="session-page-container" spacing={4}>
             <Grid container id="session-page-body" spacing={4}>
-                <Grid xs={3} id="roll-tables">
-                    {/* TODO: add the rest of the roll tables */}
-                    <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
-                    <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
-                    <RollTable tablename='Skills' rows={SKILLS} />
-                </Grid>
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
                     <Grid xs display="flex" justifyContent="flex-end">
                         <SessionSearchBar setPinnedContent={setPinnedContent} />
                     </Grid>
-                    <h3>Players</h3>
-                    <Stack spacing={1} marginTop="2%" marginBottom="2%">
-                        {!!playerCharacters ?? 
-                            <div>No Players Yet</div>
-                        }
-                        {/* NOTE: will need to know if players or npcs are selected and filter it */}
-                        {playerCharacters?.map(({img, name }) => (
-                            <CharacterPlate key={name} img={img} name={name} />
-                        ))}
-                    </Stack>
-                    <Button startIcon={<AddIcon />}>Add Player(s) to Session</Button>
-                    <h3>NPCs</h3>
-                    <Stack spacing={1} marginTop="2%" marginBottom="2%">
-                        {!!npcs &&
-                            <div>No NPCS</div>
-                        }
-                        {/* NOTE: will need to know if players or npcs are selected and filter it */}
-                        {npcs?.map(({img, name }) => (
-                            <CharacterPlate key={name} img={img} name={name} />
-                        ))}
-                    </Stack>
-                    {/* NOTE: these could be a reusable component, i'll use the same style for add campaign and session on other pages */}
-                    <Button startIcon={<AddIcon />}>Add NPC(s) to Session</Button>
+                    <Grid display='flex' width='100%' justifyContent='space-between'>
+                        <Grid width='35%'>
+                            <h3>Players</h3>
+                            <Stack spacing={1} marginTop="2%" marginBottom="2%">
+                                {!!playerCharacters ?? 
+                                    <div>No Players Yet</div>
+                                }
+                                {/* NOTE: will need to know if players or npcs are selected and filter it */}
+                                {playerCharacters?.map(({img, name }) => (
+                                    <CharacterPlate key={name} img={img} name={name} />
+                                ))}
+                            </Stack>
+                            <Button startIcon={<AddIcon />}>Add Player(s) to Session</Button>
+                        </Grid>
+                        <Grid width='35%'>
+                            <h3>NPCs</h3>
+                            <Stack spacing={1} marginTop="2%" marginBottom="2%">
+                                {/* {!!npcs &&
+                                    <div>No NPCS</div>
+                                } */}
+                                {/* NOTE: will need to know if players or npcs are selected and filter it */}
+                                {npcs?.map(({img, name }) => (
+                                    <CharacterPlate key={name} img={img} name={name} />
+                                ))}
+                            </Stack>
+                            {/* NOTE: these could be a reusable component, i'll use the same style for add campaign and session on other pages */}
+                            <Button startIcon={<AddIcon />}>Add NPC(s) to Session</Button>
+                        </Grid>
+                        <Grid width='27%'>
+                            <h3>Notes</h3>
+                                <TextField 
+                                    id="outlined-multiline-flexible"
+                                    multiline
+                                    fullWidth
+                                />
+                        </Grid>
+
+                    </Grid>
                     {/* TODO: make me and all other h3s a reusable styled component */}
                     {/* TODO: since this opens modals to display their info, might be good to make this it's own component too */}
-                    <h3>Info Panels</h3>
-                    <Grid id="info-modals" display='flex' justifyContent='space-evenly' spacing={1} style={{ marginTop: '2%'}}>
+                    <Grid id="info-modals" display='flex' justifyContent='space-evenly' spacing={1} style={{ marginTop: '3%', marginBottom: '3%'}}>
                         {/* TODO: obviously add the modals, when building out this separate component */}
                         {/* actions in combat modal button here */}
                         <div>Actions in Combat</div>
@@ -91,12 +100,13 @@ const SessionPage = () => {
                         <div>Destroying Objects</div>
                         <div>Madness Tables</div>
                     </Grid>
-                    <h3>Notes</h3>
-                    <TextField 
-                        id="outlined-multiline-flexible"
-                        multiline
-                        fullWidth
-                    />
+                    <Grid xs={3} id="roll-tables" display='flex' flexWrap='wrap' justifyContent='space-between' marginTop='2%'>
+                        <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
+                        <RollTable tablename='Exhaustion' rows={EXHAUSTION} />
+                        <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
+                        <RollTable tablename='Skills' rows={SKILLS} />
+                        <RollTable tablename='Cover' rows={COVER} />
+                    </Grid>
                 </Grid>
             </Grid>
             <SessionFooter pinnedContent={pinnedContent} />
