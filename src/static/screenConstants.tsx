@@ -190,3 +190,204 @@ export const ACTIONS_IN_COMBAT = [
     }
     
 ]
+
+export const LIFESTYLE_EXPENSES = [
+    { 
+        "lifestyle": "Wretched",
+        "price/day": "-"
+    },
+    { 
+        "lifestyle": "Squalid",
+        "price/day": "1 sp"
+    },
+    { 
+        "lifestyle": "Poor",
+        "price/day": "2 sp"
+    },
+    { 
+        "lifestyle": "Comfortable",
+        "price/day": "2 gp"
+    },
+    { 
+        "lifestyle": "Wealthy",
+        "price/day": " 4 gp"
+    },
+    { 
+        "lifestyle": "Aristocratic",
+        "price/day": "10 gp minimum"
+    },
+]
+
+export const ADVENTURING_SERVICES = [
+    {
+        "service": "Coach Cab between Towns",
+        "pay": "3 cp/mile",
+    },
+    {
+        "service": "Coach Cab within City",
+        "pay": "1 cp",
+    },
+    {
+        "service": "Unskilled Hireling",
+        "pay": "2 sp/day",
+    },
+    {
+        "service": "Skilled Hireling",
+        "pay": "2 gp/day",
+    },
+    {
+        "service": "Messenger",
+        "pay": "2 cp/mile",
+    },
+    {
+        "service": "Road/Gate Toll",
+        "pay": "1 cp",
+    },
+    {
+        "service": "Ship's Passage",
+        "pay": "1 sp/mile",
+    },
+    {
+        "service": "First Level Spell",
+        "pay": "10-30gp + components",
+    },
+    {
+        "service": "Second Level Spell",
+        "pay": "30-50gp + components",
+    },
+    {
+        "service": "Third or Higher Level Spell",
+        "pay": "DM Discretion (often a service or quest hook)",
+    },
+]
+
+
+export const EXCHANGE_RATES = [
+    {
+        "coin": "Copper",
+        "cp": '1',
+        "sp": '1/10',
+        "ep": '1/50',
+        "gp": '1/100',
+        "pp": '1/1000'
+    },
+    {
+        "coin": "Silver",
+        "cp": '10',
+        "sp": '1',
+        "ep": '1/5',
+        "gp": '1/10',
+        "pp": '1/100'
+    },
+    {
+        "coin": "Electrum",
+        "cp": '50',
+        "sp": '5',
+        "ep": '1',
+        "gp": '1/2',
+        "pp": '1/20'
+    },
+    {
+        "coin": "Gold",
+        "cp": '100',
+        "sp": '10',
+        "ep": '2',
+        "gp": '1',
+        "pp": '1/10'
+    },
+    {
+        "coin": "Platinum",
+        "cp": '1000',
+        "sp": '100',
+        "ep": '50',
+        "gp": '10',
+        "pp": '1'
+    },
+]
+
+
+export const FOOD_DRINK_LODGING = [
+    {
+        "item": "Ale",
+        "cost": "2 sp (Gallon), 4 cp (Mug)",
+    },
+    {
+        "item": "Banquet (per person)",
+        "cost": "10 gp",
+    },
+    {
+        "item": "Bread, loaf",
+        "cost": "2 cp",
+    },
+    {
+        "item": "Cheese, hunk",
+        "cost": "1 sp",
+    },
+    {
+        "item": "Inn stay (per day)",
+        "cost": "7 cp (Squalid), 1 sp (Poor), 5 sp (Modest), 8 sp (Comfortable), 2 gp (Wealthy), 4gp (Aristocratic)",
+    },
+    {
+        "item": "Meals (per day)",
+        "cost": "3 cp (Squalid), 6cp (Poor), 3 sp (Modest), 5 sp for (Comfortable), 8 sp (Wealthy), 2 gp (Aristocratic)",
+    },
+    {
+        "item": "Meat, chunk",
+        "cost": "3 sp",
+    },
+    {
+        "item": "Wine",
+        "cost": "2 sp (Common), 10 gp (Fine)",
+    },
+]
+
+export const MOUNTS = [
+    {
+        "item": "Camel",
+        "cost": "50 gp",
+        "speed": "50ft",
+        "capacity": "480lb"
+    },
+    {
+        "item": "Donkey or Mule",
+        "cost": "8 gp",
+        "speed": "40ft",
+        "capacity": "420lb"
+    },
+    {
+        "item": "Elephant",
+        "cost": "200 gp",
+        "speed": "40ft",
+        "capacity": "480lb"
+    },
+    {
+        "item": "Horse, draft",
+        "cost": "50 gp",
+        "speed": "40ft",
+        "capacity": "540lb"
+    },
+    {
+        "item": "Horse, riding",
+        "cost": "75 gp",
+        "speed": "60ft",
+        "capacity": "480lb"
+    },
+    {
+        "item": "Mastiff",
+        "cost": "25 gp",
+        "speed": "40ft",
+        "capacity": "195lb"
+    },
+    {
+        "item": "Pony",
+        "cost": "30 gp",
+        "speed": "40ft",
+        "capacity": "225lb"
+    },
+    {
+        "item": "Warhorse",
+        "cost": "400 gp",
+        "speed": "60ft",
+        "capacity": "540lb"
+    },
+]

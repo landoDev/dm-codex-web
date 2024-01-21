@@ -19,7 +19,9 @@ export const InfoTable = styled('div')`
 `;
 
 export const ModalContentContainer = styled(Box)(() => ({
-    width: 800,
+    display: 'flex',
+    flexDirection: 'column',
+    width: 950,
     padding: '1%',
     backgroundColor: 'red',
     border: '2px solid #000',
