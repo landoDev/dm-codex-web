@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Box } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
 
 export const ModalTablesContainer = styled(Grid)(() => ({
@@ -16,3 +17,16 @@ export const ModalTablesContainer = styled(Grid)(() => ({
 export const InfoTable = styled('div')`
     cursor: pointer;
 `;
+
+export const ModalContentContainer = styled(Box)(() => ({
+    width: 800,
+    padding: '1%',
+    backgroundColor: 'red',
+    border: '2px solid #000',
+    boxShadow: '24',
+    margin: '0 auto',
+    marginTop: '1%',
+    marginBottom: '1%',
+    maxHeight: '98%',
+    overflowY: 'auto'
+}))

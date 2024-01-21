@@ -83,8 +83,8 @@ const SessionPage = () => {
                     <Grid xs={3} id="roll-tables" display='flex' flexWrap='wrap' justifyContent='space-between' marginTop='2%'>
                         <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
                         <RollTable tablename='Exhaustion' rows={EXHAUSTION} />
-                        <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
                         <RollTable tablename='Skills' rows={SKILLS} />
+                        <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
                         <RollTable tablename='Cover' rows={COVER} />
                     </Grid>
                 </Grid>

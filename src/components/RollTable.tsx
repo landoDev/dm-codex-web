@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    fontSize: '12px',
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -25,9 +26,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }));
 
 interface RollTableProps {
-    tablename: string;
+    tablename?: string;
     // this should be a list of objects and each object is a dynamic obj of a row
     rows: { [key: string]: string }[];
+    maxWidth?: string;
+    fontSize?: string;
 }
 
 
@@ -38,14 +41,14 @@ interface RollTableProps {
  * **BE SURE** that you are passing an array of objects where the keys are the headers and values are each corresponding row value
  * 
  */
-const RollTable = ({tablename, rows}: RollTableProps) => {
+const RollTable = ({tablename, rows, maxWidth = '500px', fontSize }: RollTableProps) => {
 
     const headers = Object.keys(rows[0]).map(key => key.toUpperCase())
     
     return (
         // going to pass style to this for now but will customize with props later 
         // when you do that make sure you also allow the component to take relevant style props when I call it 
-        <TableContainer style={{maxWidth: '500px'}}>
+        <TableContainer style={{maxWidth: maxWidth }}>
             <h2>{tablename}</h2>
             <Table aria-label="customized table">
                 <TableHead>
@@ -59,7 +62,7 @@ const RollTable = ({tablename, rows}: RollTableProps) => {
                 {rows.map((row) => (
                     <StyledTableRow>
                     {Object.values(row).map(item => (
-                        <StyledTableCell>{item}</StyledTableCell>
+                        <StyledTableCell style={{ fontSize: fontSize }}>{item}</StyledTableCell>
                     ))}
                     </StyledTableRow>
                 ))}
