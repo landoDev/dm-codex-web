@@ -4,6 +4,7 @@ import { useState } from "react";
 import ActionsInCombat from "./ActionsInCombat";
 import Conditions from "./Conditions";
 import CommonExpenses from "./CommonExpenses";
+import WildMagicTable from "./WildMagicTable";
 
 
 const ModalTables = () => {
@@ -17,7 +18,7 @@ const ModalTables = () => {
             <ActionsInCombat />
             <Conditions />
             <CommonExpenses />
-            <InfoTable>Wild Magic Table</InfoTable>
+            <WildMagicTable />
             <InfoTable>Travel Paces</InfoTable>
             <InfoTable>Improvizing Damage</InfoTable>
             <InfoTable>Destroying Objects</InfoTable>
