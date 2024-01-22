@@ -29,6 +29,7 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
+        // TODO: THIS DOESN'T RETURN SANE RESULTS
         return list.filter(({name}) => {
             // creates pattern with positive lookahead, matches any character except line break, and matches 0 or more instances of a character
             const pattern = query.split("").map(x => `(?=.*${x})`).join("")
@@ -49,6 +50,8 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
 
     const pinSpell = (element: FifthEditionResult) => {
         handlePinElement(element)
+        // TODO: FIX HOW TO HANDLE THE PIN FLOW
+        // ISSUE AT HAND IS HAVING THE SPELL RETURNED TO THE LIST AFTER UNPINNING IT
         const updatedSpellOptions = spellList.filter((content) => content !== element)
         setSpellList(updatedSpellOptions)
     }
