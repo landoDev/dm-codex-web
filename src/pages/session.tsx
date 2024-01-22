@@ -8,7 +8,7 @@ import CharacterPlate from '../components/CharacterPlate';
 import RollTable from '../components/RollTable';
 import SessionSearchBar from '../components/SessionSearchBar';
 
-import { COVER, DAMAGE_SEVERITY, EXHAUSTION, SETTING_DC, SKILLS } from '../static/screenConstants';
+import { COVER, DAMAGE_SEVERITY, EXHAUSTION, IMPROVIZING_DAMAGE, SETTING_DC, SKILLS } from '../static/screenConstants';
 import SessionFooter from '../components/SessionFooter';
 import { SessionPageContainer } from '../styles/session.styles';
 import ModalTables from '../components/ModalTables';
@@ -84,6 +84,7 @@ const SessionPage = () => {
                         <RollTable tablename="Setting a DC"  rows={SETTING_DC} />
                         <RollTable tablename='Exhaustion' rows={EXHAUSTION} />
                         <RollTable tablename='Skills' rows={SKILLS} />
+                        <RollTable tablename='Improvizing Damage' rows={IMPROVIZING_DAMAGE} />
                         <RollTable tablename='Damage Severity and Level' rows={DAMAGE_SEVERITY} />
                         <RollTable tablename='Cover' rows={COVER} />
                     </Grid>

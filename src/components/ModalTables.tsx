@@ -6,6 +6,8 @@ import Conditions from "./Conditions";
 import CommonExpenses from "./CommonExpenses";
 import WildMagicTable from "./WildMagicTable";
 import Traveling from "./Traveling";
+import DestroyingObjects from "./DestroyingObjects";
+import MadnessTables from "./MadnessTables";
 
 
 const ModalTables = () => {
@@ -15,15 +17,13 @@ const ModalTables = () => {
      */
     return (
         <ModalTablesContainer id="info-modals" spacing={1}>
-            {/* TODO: think about how to reuse this component or how to open each modal accurately and DRY */}
             <ActionsInCombat />
             <Conditions />
             <CommonExpenses />
             <WildMagicTable />
             <Traveling />
-            <InfoTable>Improvizing Damage</InfoTable>
-            <InfoTable>Destroying Objects</InfoTable>
-            <InfoTable>Madness Tables</InfoTable>
+            <DestroyingObjects />
+            <MadnessTables />
         </ModalTablesContainer>
     );
 };

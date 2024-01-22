@@ -607,3 +607,258 @@ export const PC_TRAVEL_SLOW = [{"minute": '200 ft', "hour": '4 miles', "day": '1
 
 export const PARTY_PACE = [{"minute": 'Speed X 10ft', "hour": 'Speed ÷ 10 mi', "day": 'Speed X 0.6 mi', 'effect': 'Effect based on pace'}]
 export const PACE_EFFECTS = [{ "slow": 'Use 2/3 base speed, able to stealth	', 'normal': 'No effect', 'fast': 'Use 1.33 base speed, -5 passive perception'}]
+
+export const IMPROVIZING_DAMAGE = [
+    {
+        "damage": "1d10",
+        "example": "Burned by coals, hit by a falling bookcase, pricked by a poison needle"
+    },
+    {
+        "damage": "2d10",
+        "example": "Being struck by lightning, stumbling into a fire pit"
+    },
+    {
+        "damage": "4d10",
+        "example": "Hit by falling rubble in a collapsing tunnel, stumbling into a vat of acid"
+    },
+    {
+        "damage": "10d10",
+        "example": "Crushed by compacting walls, hit by whirling steel blades, wading through a lava stream"
+    },
+    {
+        "damage": "18d10",
+        "example": "Being submerged in lava, being hit by a crashing flying fortress"
+    },
+    {
+        "damage": "24d10",
+        "example": "Tumbling into a vortex of fire on the Elemental Plane of Fire, being crushed in the jaws of a godlike creature or a moon-sized monster"
+    },
+]
+
+export const OBJECT_AC = [
+    {
+        "substance": "Cloth",
+        "ac": "11"
+    },
+    {
+        "substance": "Paper",
+        "ac": "11"
+    },
+    {
+        "substance": "Rope",
+        "ac": "11"
+    },
+    {
+        "substance": "Crystal",
+        "ac": "13"
+    },
+    {
+        "substance": "Glass",
+        "ac": "13"
+    },
+    {
+        "substance": "Ice",
+        "ac": "13"
+    },
+    {
+        "substance": "Wood",
+        "ac": "15"
+    },
+    {
+        "substance": "Bone",
+        "ac": "15"
+    },
+    {
+        "substance": "Stone",
+        "ac": "17"
+    },
+    {
+        "substance": "Iron",
+        "ac": "19"
+    },
+    {
+        "substance": "Steel",
+        "ac": "19"
+    },
+    {
+        "substance": "Mithril",
+        "ac": "21"
+    },
+    {
+        "substance": "Adamantine",
+        "ac": "23"
+    },
+]
+
+export const OBJECT_HIT_POINTS = [
+    {
+        "size": 'TINY (Bottle, Lock)',
+        "weak": '1d4',
+        "tough": '2d4'
+    },
+    {
+        "size": 'SMALL (Chest, Chain)',
+        "weak": '1d6',
+        "tough": '3d6'
+    },    
+    {
+        "size": 'MEDIUM (Barrell, Chandelier)',
+        "weak": '1d8',
+        "tough": '4d8'
+    },    
+    {
+        "size": 'LARGE (Cart, Window)',
+        "weak": '1d10',
+        "tough": '5d10'
+    },    
+    {
+        "size": 'HUGE+ (Bottle, Lock)',
+        "weak": 'DM Discretion',
+        "tough": 'DM Discretion'
+    },
+]
+
+export const SHORT_TERM_MADNESS = [
+    {
+        "d100": '01-20',
+        "effect (lasts 1d10 minutes)": 'The character retreats into his or her mind and becomes paralyzed.'
+    },
+    {
+        "d100": '21-30',
+        "effect (lasts 1d10 minutes)": 'The character becomes incapacitated and spends the duration screaming, laughing, or weeping.'
+    },
+    {
+        "d100": '31-40',
+        "effect (lasts 1d10 minutes)": 'The character becomes frightened and must use his or her action and movement each round to flee from the source of the fear.'
+    },
+    {
+        "d100": '41-50',
+        "effect (lasts 1d10 minutes)": 'The character begins babbling and is incapable of normal speech or spellcasting.'
+    },
+    {
+        "d100": '51-60',
+        "effect (lasts 1d10 minutes)": 'The character must use his or her action each round to attack the nearest creature.'
+    },
+    {
+        "d100": '61-70',
+        "effect (lasts 1d10 minutes)": 'The character experiences vivid hallucinations and has disadvantage on ability checks.'
+    },
+    {
+        "d100": '71-75',
+        "effect (lasts 1d10 minutes)": "The character does whatever anyone tells him or her to do that isn't obviously self-destructive."
+    },
+    {
+        "d100": '76-80',
+        "effect (lasts 1d10 minutes)": 'The character experiences an overpowering urge to eat something strange such as dirt, slime, or offal.'
+    },
+    {
+        "d100": '81-90',
+        "effect (lasts 1d10 minutes)": 'The character is stunned'
+    },
+    {
+        "d100": '91-00',
+        "effect (lasts 1d10 minutes)": 'The character falls unconscious'
+    },
+]
+
+export const LONG_TERM_MADNESS = [
+    {
+        "d100": '01-10',
+        "effect (lasts 1d10 x 10 hours)": 'The character feels compelled to repeat a specific activity over and over, such as washing hands, touching things, praying, or counting coins.'
+    },
+    {
+        "d100": '11-20',
+        "effect (lasts 1d10 x 10 hours)": 'The character experiences vivid hallucinations and has disadvantage on ability checks.'
+    },
+    {
+        "d100": '21-30',
+        "effect (lasts 1d10 x 10 hours)": 'The character suffers extreme paranoia. The character has disadvantage on Wisdom and Charisma checks.'
+    },
+    {
+        "d100": '31-40',
+        "effect (lasts 1d10 x 10 hours)": 'The character regards something (usually the source of the madness) with intense revulsion, as if affected by the antipathy effect of the antipathy/sympathy spell.'
+    },
+    {
+        "d100": '41-45',
+        "effect (lasts 1d10 x 10 hours)": 'The character experiences a powerful delusion. Choose a potion. The character imagines that he or she is under its effects.'
+    },
+    {
+        "d100": '46-55',
+        "effect (lasts 1d10 x 10 hours)": 'The character becomes attached to a "Lucky charm," such as a person or an object, and has disadvantage on attack rolls, ability checks, and saving throws while more than 30 feet away from it.'
+    },
+    {
+        "d100": '56-65',
+        "effect (lasts 1d10 x 10 hours)": "The character is blinded (25%) or deafened (75%)."
+    },
+    {
+        "d100": '66-75',
+        "effect (lasts 1d10 x 10 hours)": 'The character experiences uncontrollable tremors or tics, which imposes disadvantage on attack rolls, ability checks, and saving throws that involve Strength or Dexterity.'
+    },
+    {
+        "d100": '76-85',
+        "effect (lasts 1d10 x 10 hours)": "The character suffers from partial amnesia. The character knows who he or she is and retains racial traits and class features, but doesn't recognize other people or remember anything that happened before the madness took effect."
+    },
+    {
+        "d100": '86-90',
+        "effect (lasts 1d10 x 10 hours)": 'Whenever the character takes damage, he or she must succeed on a DC 15 Wisdom saving throw or be affected as though he or she failed a saving throw against the confusion spell. The confusion effect lasts for 1 minute.'
+    },
+    {
+        "d100": '91-95',
+        "effect (lasts 1d10 x 10 hours)": 'The character loses the ability to speak.'
+    },
+    {
+        "d100": '96-100',
+        "effect (lasts 1d10 x 10 hours)": 'The character falls unconscious. No amount of jostling or damage can wake the character.'
+    },
+]
+
+export const INDEFINITE_MADNESS = [
+    {
+        "d100": '01-15',
+        "flaw (lasts until cured)": '"Being drunk keeps me sane"'
+    },
+    {
+        "d100": '16-25',
+        "flaw (lasts until cured)": '"I keep whatever I find."'
+    },
+    {
+        "d100": '26-30',
+        "flaw (lasts until cured)": '"I try to become more like someone else I know - adopting his or her style or dress, mannerisms, and name."'
+    },
+    {
+        "d100": '31-35',
+        "flaw (lasts until cured)": '"I must bend the truth, exaggerate, or outright lie to be interesting to other people."'
+    },
+    {
+        "d100": '36-45',
+        "flaw (lasts until cured)": '"Achieving my goal is the only thing of interest to me, and I\'ll ignore everything else to pursue it."'
+    },
+    {
+        "d100": '46-50',
+        "flaw (lasts until cured)": '"I find it hard to care about anything that goes on around me."'
+    },
+    {
+        "d100": '51-55',
+        "flaw (lasts until cured)": '"I don\'t like the way people judge me all the time."'
+    },
+    {
+        "d100": '56-70',
+        "flaw (lasts until cured)": '"I am the smartest, wisest, strongest, fastest, and most beautiful person I know."'
+    },
+    {
+        "d100": '71-80',
+        "flaw (lasts until cured)": '"I am convinced that powerful enemies are hunting me, and their agents are everywhere I go. I am sure they\'re watching me all the time."'
+    },
+    {
+        "d100": '81-85',
+        "flaw (lasts until cured)": '"There\'s only one person I can trust. And only I can see this special friend."'
+    },
+    {
+        "d100": '86-95',
+        "flaw (lasts until cured)": '"I can\'t take anything seriously. The more serious the situation, the funnier I find it."'
+    },
+    {
+        "d100": '96-100',
+        "flaw (lasts until cured)": '"I\'ve discovered that I really like killing people."'
+    },
+]
