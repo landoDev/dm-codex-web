@@ -13,16 +13,19 @@ interface FifthEditionResult {
 };
 
 interface SessionSearchBarProps {
+    pinnedContent: PinnedContent[],
     setPinnedContent: (value: any) => void;
 };
 
-const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
+const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarProps) => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
     const [spellQuery, setSpellQuery] = useState<string>('');
     const [filteredSpellList, setFilteredSpellList] = useState<FifthEditionResult[]>([]);
     const [monsterList, setMonsterList] = useState<FifthEditionResult[]>([]);
     const [monsterQuery, setMonsterQuery] = useState<string>('');
     const [filteredMonsterList, setFilteredMonsterList] = useState<FifthEditionResult[]>();
+
+    console.log(pinnedContent)
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
@@ -36,6 +39,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
 
     const handlePinElement = (element: FifthEditionResult) => {
         /* Takes the FifthEditionResult that's mapped and structures it to fit the `PinnedContent` type */
+        // changing the structure is meant to allow for this content to come from different sources
         const newContent = {
             contentName: element.name,
             contentUrl: element.url
@@ -43,9 +47,13 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
         setPinnedContent((pinnedContent: PinnedContent[]) => [...pinnedContent, newContent])
     }
 
+    const pinSpell = (element: FifthEditionResult) => {
+        handlePinElement(element)
+        const updatedSpellOptions = spellList.filter((content) => content !== element)
+        setSpellList(updatedSpellOptions)
+    }
+
     useEffect(() => {
-        // would redux be useful to keep this in context?? and consistent. revist me 
-        // would allow this to be fetched once on website visit and then referenced through context?
         // get spells and monsters if not retrieved
         if (!spellList.length){
             axios.get(`${FIFTH_EDITION_API}/spells`)
@@ -61,13 +69,21 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
             })
             .catch(error => console.log(error))
         }
-    }, []);
+    }, [spellList.length, monsterList.length]);
 
     useEffect(() => {
         if (spellQuery) {
-            setFilteredSpellList(filterListFromQuery(spellList, spellQuery))
+            const validSpells = spellList.filter(spell => {
+                const formattedObj = {
+                    "contentName": spell.name,
+                    "url": spell.url
+                }
+                return (!pinnedContent.includes(formattedObj))
+            })
+            console.log('valid', validSpells)
+            setFilteredSpellList(filterListFromQuery(validSpells, spellQuery))
         } 
-    }, [spellQuery])
+    }, [spellQuery, spellList, pinnedContent])
 
     useEffect(() => {
         if (monsterQuery) {
@@ -101,7 +117,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                         >
                         {filteredSpellList?.map((spell: FifthEditionResult)=> {
                             return (
-                                <ListItemButton key={spell.index} onClick={() => handlePinElement(spell)}>
+                                <ListItemButton key={spell.index} onClick={() => pinSpell(spell)}>
                                    <ListItemText>{spell.name}</ListItemText>
                                 </ListItemButton>
                                     )

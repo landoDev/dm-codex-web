@@ -34,3 +34,7 @@ export const ContentElement = styled('div')`
     flex-wrap: wrap;
 `
 
+export const UnpinElement = styled('div')`
+    cursor: pointer;
+    margin-top: 5px;
+`;

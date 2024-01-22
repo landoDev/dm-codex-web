@@ -45,9 +45,9 @@ const SessionPage = () => {
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
                     <Grid xs display="flex" justifyContent="flex-end">
-                        <SessionSearchBar setPinnedContent={setPinnedContent} />
+                        <SessionSearchBar pinnedContent={pinnedContent} setPinnedContent={setPinnedContent} />
                     </Grid>
-                    <Grid display='flex' width='100%' justifyContent='space-between'>
+                    <Grid display='flex' width='100%' justifyContent='space-between' zIndex={-1}>
                         <Grid width='35%'>
                             <h3>Players</h3>
                             <Stack spacing={1} marginTop="2%" marginBottom="2%">
@@ -67,7 +67,7 @@ const SessionPage = () => {
                                 ))}
                             </Stack>
                             {/* NOTE: these could be a reusable component, i'll use the same style for add campaign and session on other pages */}
-                            <Button startIcon={<AddIcon />}>Add NPC(s) to Session</Button>
+                            <Button startIcon={<AddIcon />} style={{zIndex: -1}}>Add NPC(s) to Session</Button>
                         </Grid>
                         <Grid width='27%'>
                             <h3>Notes</h3>
@@ -94,7 +94,7 @@ const SessionPage = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <SessionFooter pinnedContent={pinnedContent} />
+            <SessionFooter pinnedContent={pinnedContent} setPinnedContent={setPinnedContent} />
         </SessionPageContainer>
     )
 }
