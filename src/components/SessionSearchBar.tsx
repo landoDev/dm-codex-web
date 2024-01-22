@@ -18,10 +18,10 @@ interface SessionSearchBarProps {
 
 const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
-    const [spellQuery, setSpellQuery] = useState<string>();
+    const [spellQuery, setSpellQuery] = useState<string>('');
     const [filteredSpellList, setFilteredSpellList] = useState<FifthEditionResult[]>([]);
     const [monsterList, setMonsterList] = useState<FifthEditionResult[]>([]);
-    const [monsterQuery, setMonsterQuery] = useState<string>();
+    const [monsterQuery, setMonsterQuery] = useState<string>('');
     const [filteredMonsterList, setFilteredMonsterList] = useState<FifthEditionResult[]>();
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
@@ -82,6 +82,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                     <SearchInput 
                     id="spells" 
                     label="Spells" 
+                    query={spellQuery}
                     setQuery={setSpellQuery}
                     />
                     {/* Add component that will open up and show what's available
@@ -114,6 +115,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                     <SearchInput 
                         id="monsters" 
                         label="Monsters"
+                        query={monsterQuery}
                         setQuery={setMonsterQuery}
                      />
                      {monsterQuery &&
@@ -124,7 +126,6 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                                 bgcolor: 'background.paper',
                                 position: 'absolute',
                                 overflow: 'auto',
-                                zIndex: 100,
                                 maxHeight: 300,
                                 '& ul': { padding: 0 },
                             }}
