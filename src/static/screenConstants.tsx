@@ -595,3 +595,15 @@ export const WILD_MAGIC_TABLE_TWO = [
     },
     
 ]
+
+export const MAP_TRAVEL_DUNGEON = [{ "slow": '20 sq./min', 'normal': '30 sq./min', 'fast': '40 sq./min'}]
+export const MAP_TRAVEL_CITY = [{ "slow": '2 sq./min', 'normal': '3 sq./min', 'fast': '4 sq./min'}]
+export const MAP_TRAVEL_PROVINCE = [{ "slow": '2 hexes/hour or 18 hexes/day', 'normal': '3 hexes/hour or 24 hexes/day', 'fast': '4 hexes/hour or 30 hexes/day'}]
+export const MAP_TRAVEL_KINGDOM = [{ "slow": '1 hex/3 hours or 3 hexes/da', 'normal': '1 hex/2 hours or or 4 hexes/da', 'fast': '1 hex/1.5 hours or 5 hexes/day'}]
+
+export const PC_TRAVEL_FAST = [{"minute": '400 ft', "hour": '4 miles', "day": '30 miles', 'effect': '-5 to passive perception score'}]
+export const PC_TRAVEL_NORMAL = [{"minute": '300 ft', "hour": '3 miles', "day": '24 miles', 'effect': '-'}]
+export const PC_TRAVEL_SLOW = [{"minute": '200 ft', "hour": '4 miles', "day": '18 miles', 'effect': 'Able to stealth'}]
+
+export const PARTY_PACE = [{"minute": 'Speed X 10ft', "hour": 'Speed ÷ 10 mi', "day": 'Speed X 0.6 mi', 'effect': 'Effect based on pace'}]
+export const PACE_EFFECTS = [{ "slow": 'Use 2/3 base speed, able to stealth	', 'normal': 'No effect', 'fast': 'Use 1.33 base speed, -5 passive perception'}]

@@ -5,6 +5,7 @@ import ActionsInCombat from "./ActionsInCombat";
 import Conditions from "./Conditions";
 import CommonExpenses from "./CommonExpenses";
 import WildMagicTable from "./WildMagicTable";
+import Traveling from "./Traveling";
 
 
 const ModalTables = () => {
@@ -19,7 +20,7 @@ const ModalTables = () => {
             <Conditions />
             <CommonExpenses />
             <WildMagicTable />
-            <InfoTable>Travel Paces</InfoTable>
+            <Traveling />
             <InfoTable>Improvizing Damage</InfoTable>
             <InfoTable>Destroying Objects</InfoTable>
             <InfoTable>Madness Tables</InfoTable>

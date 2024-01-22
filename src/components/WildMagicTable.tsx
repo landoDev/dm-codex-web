@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InfoTable, ModalContentContainer } from "../styles/ModalTables.styles";
 import { Modal } from "@mui/material";
 import RollTable from "./RollTable";
-import { ACTIONS_IN_COMBAT, WILD_MAGIC_TABLE, WILD_MAGIC_TABLE_TWO } from "../static/screenConstants";
+import { WILD_MAGIC_TABLE, WILD_MAGIC_TABLE_TWO } from "../static/screenConstants";
 import { CommonExpTableGrouping, TwoTableContainerItem } from "../styles/CommonExpenses.styles";
 
 
