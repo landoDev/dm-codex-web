@@ -18,6 +18,7 @@ export const ContentElementContainer = styled('div')`
     border-radius: 15px 15px 0 0;
     box-shadow: -3px 1px green;
     display: flex;
+    justify-content: center;
     align-items: center;
     overflow: hidden;
     padding: 0 5px 0 0

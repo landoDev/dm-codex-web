@@ -75,6 +75,10 @@ const SessionPage = () => {
                                     id="outlined-multiline-flexible"
                                     multiline
                                     fullWidth
+                                    style={{
+                                        // as of the change in this commit, notes is under the search and needs to be buried under the results
+                                        zIndex: -1,
+                                    }}
                                 />
                         </Grid>
                     </Grid>

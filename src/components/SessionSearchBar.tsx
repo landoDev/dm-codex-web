@@ -124,6 +124,7 @@ const SessionSearchBar = ({ setPinnedContent }: SessionSearchBarProps) => {
                                 bgcolor: 'background.paper',
                                 position: 'absolute',
                                 overflow: 'auto',
+                                zIndex: 100,
                                 maxHeight: 300,
                                 '& ul': { padding: 0 },
                             }}

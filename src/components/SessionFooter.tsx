@@ -14,7 +14,7 @@ const SessionFooter = ({ pinnedContent }: SessionFooterProps) => {
                             <ContentElementContainer>
                                 <ContentElement>{element.contentName}</ContentElement>
                                 {/* TODO: add setPinnedContent onClick here to remove this item from the list */}
-                                <><CloseIcon fontSize="small" /></>
+                                <div><CloseIcon fontSize="small" /></div>
                             </ContentElementContainer>
                             )
                     })}
