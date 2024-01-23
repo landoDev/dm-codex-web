@@ -1,1 +1,1 @@
-export const FIFTH_EDITION_API = "https://www.dnd5eapi.co/api/"
+export const FIFTH_EDITION_API = "https://www.dnd5eapi.co"

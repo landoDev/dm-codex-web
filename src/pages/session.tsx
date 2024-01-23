@@ -20,7 +20,8 @@ interface CharacterPlateType {
 // NOTE: create type files if they need to be exported and shared
 export type PinnedContent = {
     contentName: string;
-    url: string | null; 
+    contentUrl: string | null; 
+    contentType: string;
 }
 
 const SessionPage = () => {

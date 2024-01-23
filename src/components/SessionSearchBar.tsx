@@ -38,18 +38,19 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
         })
     }
 
-    const handlePinElement = (element: FifthEditionResult) => {
+    const handlePinElement = (element: FifthEditionResult, contentType: string) => {
         /* Takes the FifthEditionResult that's mapped and structures it to fit the `PinnedContent` type */
         // changing the structure is meant to allow for this content to come from different sources
         const newContent = {
             contentName: element.name,
-            contentUrl: element.url
+            contentUrl: element.url,
+            contentType: contentType
         }
         setPinnedContent((pinnedContent: PinnedContent[]) => [...pinnedContent, newContent])
     }
 
     const pinSpell = (element: FifthEditionResult) => {
-        handlePinElement(element)
+        handlePinElement(element, "spell")
         // TODO: FIX HOW TO HANDLE THE PIN FLOW
         // ISSUE AT HAND IS HAVING THE SPELL RETURNED TO THE LIST AFTER UNPINNING IT
         const updatedSpellOptions = spellList.filter((content) => content !== element)
@@ -59,14 +60,14 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
     useEffect(() => {
         // get spells and monsters if not retrieved
         if (!spellList.length){
-            axios.get(`${FIFTH_EDITION_API}/spells`)
+            axios.get(`${FIFTH_EDITION_API}/api/spells`)
             .then(response => {
                 setSpellList(response.data.results)
             })
             .catch(error => console.log(error))
         }
         if (!monsterList.length) {
-            axios.get(`${FIFTH_EDITION_API}/monsters`)
+            axios.get(`${FIFTH_EDITION_API}/api/monsters`)
             .then(response => {
                 setMonsterList(response.data.results)
             })
@@ -79,11 +80,12 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
             const validSpells = spellList.filter(spell => {
                 const formattedObj = {
                     "contentName": spell.name,
-                    "url": spell.url
+                    "contentUrl": spell.url,
+                    "contentType": "spell"
                 }
                 return (!pinnedContent.includes(formattedObj))
             })
-            console.log('valid', validSpells)
+            // console.log('valid', validSpells)
             setFilteredSpellList(filterListFromQuery(validSpells, spellQuery))
         } 
     }, [spellQuery, spellList, pinnedContent])
@@ -125,7 +127,7 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
                                 </ListItemButton>
                                     )
                                 })}
-                        {!filteredSpellList && <ListItem>No Matching Spells</ListItem>}
+                        {!filteredSpellList.length && <ListItem>No Matching Spells</ListItem>}
                         </List>
                 
                     }
@@ -151,12 +153,12 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
                         >
                             {filteredMonsterList?.map((monster: FifthEditionResult) => {
                                 return (
-                                    <ListItemButton key={monster.index} onClick={() => handlePinElement(monster)}>
+                                    <ListItemButton key={monster.index} onClick={() => handlePinElement(monster, "monster")}>
                                         <ListItemText>{monster.name}</ListItemText>
                                     </ListItemButton>
                                 )
                             })}
-                            {!filteredMonsterList && <ListItem>No Matching Monsters</ListItem>}
+                            {!filteredMonsterList?.length && <ListItem>No Matching Monsters</ListItem>}
                         </List>
                      }
                 </div>
