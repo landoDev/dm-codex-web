@@ -25,11 +25,10 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
     const [monsterQuery, setMonsterQuery] = useState<string>('');
     const [filteredMonsterList, setFilteredMonsterList] = useState<FifthEditionResult[]>();
 
-    console.log(pinnedContent)
-
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
         // TODO: THIS DOESN'T RETURN SANE RESULTS
+        // see if this helps: https://5e-bits.github.io/docs/docs/tutorials/advanced/monster-search-with-javascript
         return list.filter(({name}) => {
             // creates pattern with positive lookahead, matches any character except line break, and matches 0 or more instances of a character
             const pattern = query.split("").map(x => `(?=.*${x})`).join("")
