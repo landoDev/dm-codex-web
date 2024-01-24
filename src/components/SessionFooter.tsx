@@ -6,6 +6,8 @@ import { ContentElement, ContentElementContainer, PinnedContentContainer, UnpinE
 import CloseIcon from '@mui/icons-material/Close';
 import { ModalContentContainer } from "../styles/ModalTables.styles";
 import PinnedContentModal from "./PinnedContentModal";
+import SpellContentModal from "./SpellModal";
+import MonsterContentModal from "./MonsterModal";
 
 interface SessionFooterProps {
     pinnedContent: PinnedContent[],
@@ -13,10 +15,6 @@ interface SessionFooterProps {
 }
 
 const SessionFooter = ({ pinnedContent, setPinnedContent }: SessionFooterProps) => {
-    // TODO: BUG HERE,  must fix, opening a modal keeps you locked on that modal despite clicking on other pinned content
-    // UNLESS you exit out that pinned content. not ideal
-    const [openModal, setOpenModal] = useState<boolean>(false)
-
     const handleUnpinContent = (unpinContent: string) => {
         // remove element by filtering the current pinnedContent list
         const updatedContent = pinnedContent.filter(({ contentName }) => contentName !== unpinContent)
@@ -27,12 +25,13 @@ const SessionFooter = ({ pinnedContent, setPinnedContent }: SessionFooterProps) 
                     {pinnedContent?.map((element: PinnedContent) => {
                         return (
                             <ContentElementContainer key={element.contentName}>
-                                <ContentElement onClick={() => setOpenModal(true)}>{element.contentName}</ContentElement>
-                                <Modal open={openModal} onClose={() => setOpenModal(false)}>
-                                    <ModalContentContainer>
-                                        <PinnedContentModal contentName={element.contentName} url={element.contentUrl} type={element.contentType} />
-                                    </ModalContentContainer>
-                                </Modal>
+                                {/* NOTE: If items or other pinnable things are added this will need a slight refactor */}
+                                {
+                                    element.contentType === 'spell' ? 
+                                    <SpellContentModal contentName={element.contentName} url={element.contentUrl} />
+                                    :
+                                    <MonsterContentModal contentName={element.contentName} url={element.contentUrl} />
+                                }
                                 <UnpinElement onClick={() => handleUnpinContent(element.contentName)} id={element.contentName}><CloseIcon fontSize="small" /></UnpinElement>
                             </ContentElementContainer>
                             )
