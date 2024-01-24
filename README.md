@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## NOTE
+This project is still very much under construction. if you run `npm start`, go to `localhost:3000/session` to see the bulk of the work that's been done.
+
 ## Available Scripts
 
 In the project directory, you can run:
