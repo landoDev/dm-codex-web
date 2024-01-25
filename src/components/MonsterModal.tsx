@@ -59,6 +59,10 @@ interface MonsterContentData {
     charisma: number;
     proficiencies: Proficiency[];
     damage_immunities: [];
+    senses: {[key: string]: number | string} // api returns an object of all passive senses
+    languages: string;
+    challenge_rating: number;
+    xp: number;
 }
 
 const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => {
@@ -75,11 +79,65 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
         }
     },[url])
 
+    // UTILS //
+    const formatSenses = (sensesObj: {[key: string]: number | string} | undefined) => {
+        let formattedString = '';
+        if (sensesObj) {
+            for (const [skillName, modifier] of Object.entries(sensesObj)) {
+                formattedString = `${skillName.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} +${modifier}`
+            }
+        }
+        return formattedString
+    }
+
+    const formatChallengeRating = (cr: number | undefined) => {
+        // we only care if CR is less than 1, those are the only ones that need fractions
+        if (cr) {
+            const formattedCR = cr.toString()
+            if (cr < 1) {
+                // turn the number into its accurate stringfraction
+                
+            }
+            return formattedCR
+        } else {
+            return ''
+        }
+    }
+
+    const formatXP = (xp: number | undefined) => {
+        if (xp) {
+            // if an xp number is passed, turn it to string for formatting
+            let formattedXP = xp.toString()
+            // we only care to add commas if the value is 1000 or more
+            if (xp > 999) {
+                // TODO: what if an xp doesn't end in zeros? need to address that at some point
+                // get the number of commas we'll need 
+                const commaCount = formattedXP.split('').filter(number => number === '0').length / 3
+                // work backwards and update our formatted string as relevant
+                for (let i = commaCount + 1; i > 0; i--) {
+                    // count how far back from the end we need to slice and add a comma in 
+                    const zeroGroups = -(3 * i)
+                    const newFront = formattedXP.slice(0, zeroGroups)
+                    const newKaboose = formattedXP.slice(zeroGroups)
+                    // if not the first loop, add comma
+                    if (newFront) {
+                        formattedXP = `${newFront},${newKaboose}`
+                    }
+                } 
+            }
+            return formattedXP
+        } else {
+            // cya case
+            return ''
+        }
+    }
+
     return (
         <>
             <ContentElement onClick={() => setOpenModal(true)}>{contentName}</ContentElement>
             <Modal open={openModal} onClose={() => setOpenModal(false)}>
                 <ModalContentContainer>
+                    {/* NOTE: this could prob be it's own component then contentData? doesn't need repeated so much */}
                     <div id="monster-modal-content">
                         <h2>{contentName}</h2>
                         <p>{contentData?.size} {contentData?.type}{contentData?.subtype && `(${contentData.subtype})`}, {contentData?.alignment}</p>
@@ -106,6 +164,7 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                             <div><p>WIS</p> <p>{contentData?.wisdom}</p></div>
                             <div><p>CHA</p> <p>{contentData?.charisma}</p></div>
                         </div>
+                        <div id='monster-details'>
                         {/* TODO: should prob be it's own component lol for sure, many lines typa ting */}
                         {contentData?.proficiencies.length !== 0 && 
                         <div id="monster-proficienies">
@@ -233,8 +292,22 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                         }
                         {/* if monster has immunity */}
                         {/* TODO: create a format util that capitalizes each word and adds a ',' if it's not the last or only string in the list */}
-                        {contentData?.damage_immunities.length !== 0 && <p><strong>Damage Immunities </strong> {contentData?.damage_immunities.map(type => type)}</p>}
-                        
+                        {contentData?.damage_immunities.length !== 0 && 
+                        <p><strong>Damage Immunities </strong> {
+                            contentData?.damage_immunities.map((type: string) => type.charAt(0).toUpperCase() + type.slice(1))
+                            }
+                        </p>
+                        }
+                        <p><strong>Senses </strong>{formatSenses(contentData?.senses)}</p>
+                        <p><strong>Languages </strong>{contentData?.languages}</p>
+                        <p><strong>Challenge </strong> {formatChallengeRating(contentData?.challenge_rating)} {`(${formatXP(contentData?.xp)} XP)`}</p>
+                        </div>
+                        {/* TODO: Legendary resistances if resistances add div section */}
+                        <div id="monster-actions">
+
+                        </div>
+                        {/* TODO: Legendary actions if actions add div section */}
+
                     </div>
                 </ModalContentContainer>
             </Modal>

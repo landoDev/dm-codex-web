@@ -69,7 +69,7 @@ const SpellContentModal = ({ contentName, url }: SpellContentModalProps) => {
                         <p id="spell-level">{contentData?.level}{numberSuffixConstructor(contentData?.level)} level {contentData?.school.name}</p>
                         <p>Casting Time: {contentData?.casting_time}</p>
                         <p>Range: {contentData?.range} {contentData?.area_of_effect && `(${contentData.area_of_effect.size}ft ${contentData.area_of_effect.type})`}</p>
-                        {/* <p>Target: </p> <- not in api at present */}
+                        {/* <p>Target: </p> <- not in api at present <- look again it might be buried in there somewhere */}
                         <p>Components: {contentData?.components.join(' ')} {contentData?.material && `(${contentData.material})`}</p>
                         <p>Duration: {contentData?.duration}</p>
                         <p>Classes: {contentData?.classes.map(({name}) => <>{name} </>)}</p>
