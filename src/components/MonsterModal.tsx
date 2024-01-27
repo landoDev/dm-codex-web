@@ -14,7 +14,6 @@ interface MonsterContentModalProps {
 // NOTE: while the props have been designed to hopefully be able to scale with multiple sources, the types below were NOT
 // they were built to work with the 5e D&D api this project relies on initially
 // TODO: help clean this file up by making a separate type file for these
-
 type Armor = {
     name: string
 }
@@ -42,6 +41,22 @@ type SpeedType = {
     swim?: string
 }
 
+type Action = {
+    name: string;
+    desc: string;
+}
+
+type SpecialAbilityUsage = {
+    times: number;
+    type: string;
+}
+
+type SpecialAbility = {
+    name: string;
+    desc: string;
+    usage: SpecialAbilityUsage
+}
+
 interface MonsterContentData {
     size: string;
     type: string;
@@ -63,6 +78,8 @@ interface MonsterContentData {
     languages: string;
     challenge_rating: number;
     xp: number;
+    special_abilities: SpecialAbility[];
+    actions: Action[];
 }
 
 const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => {
@@ -79,11 +96,13 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
         }
     },[url])
 
-    // UTILS //
+    // UTILS // // Will be moved to it's own file in clean up sweep after stat block is completed
     const formatSenses = (sensesObj: {[key: string]: number | string} | undefined) => {
         let formattedString = '';
         if (sensesObj) {
             for (const [skillName, modifier] of Object.entries(sensesObj)) {
+                // the API at the time of this code gives us the name of the skill as a key
+                // so split it by it's camel case and make it prettier, then add the formatted modifier
                 formattedString = `${skillName.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} +${modifier}`
             }
         }
@@ -95,11 +114,13 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
         if (cr) {
             const formattedCR = cr.toString()
             if (cr < 1) {
-                // turn the number into its accurate stringfraction
+                // turn the number into its accurate string fraction
                 
             }
             return formattedCR
         } else {
+            // cya case
+        
             return ''
         }
     }
@@ -131,6 +152,8 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
             return ''
         }
     }
+
+    // const formatAction = () =>
 
     return (
         <>
@@ -302,9 +325,24 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                         <p><strong>Languages </strong>{contentData?.languages}</p>
                         <p><strong>Challenge </strong> {formatChallengeRating(contentData?.challenge_rating)} {`(${formatXP(contentData?.xp)} XP)`}</p>
                         </div>
-                        {/* TODO: Legendary resistances if resistances add div section */}
-                        <div id="monster-actions">
+                        <div id="monster-special-abilities">
+                            {/* only some monsters have special abilities like Legendary Resistance */}
+                            {contentData?.special_abilities.map(ability => {
+                                if (ability.name === "Legendary Resistance") {
+                                    return (
+                                        <p><strong>{ability.name} {`${ability.usage.times}/${ability.usage.type}`}</strong>. {ability.desc}</p>
+                                    )
+                                }
+                               return ''
+                            })}
 
+                        </div>
+                        <div id="monster-actions">
+                            {contentData?.actions.map(action => {
+                                return (
+                                    <p><strong>{action.name}. </strong> {action.desc}</p>
+                                )
+                            })}
                         </div>
                         {/* TODO: Legendary actions if actions add div section */}
 
