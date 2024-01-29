@@ -3,7 +3,6 @@ import axios from "axios";
 import { FIFTH_EDITION_API } from "../static/apiConstants";
 import { List, ListItem, ListItemButton, ListItemText, Stack } from "@mui/material";
 import SearchInput from "./SearchInput";
-import { PinnedContent } from "../pages/session";
 import SessionFooter from '../components/SessionFooter';
 
 
@@ -13,11 +12,14 @@ interface FifthEditionResult {
     url: string;
 };
 
-interface SessionSearchBarProps {
-};
+export type PinnedContent = {
+    contentName: string;
+    contentUrl: string | null; 
+    contentType: string;
+}
 
-const SessionSearchBar = ({}: SessionSearchBarProps) => {
 
+const SessionSearchBar = () => {
     // pinned content is the spells and monsters the DM has selected to reference on this page.
         // ideally, this would stick when reloaded but that's stretch as of this commit
     const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
@@ -54,11 +56,11 @@ const SessionSearchBar = ({}: SessionSearchBarProps) => {
 
     const pinSpell = (element: FifthEditionResult) => {
         handlePinElement(element, "spell")
-        // TODO: FIX HOW TO HANDLE THE PIN FLOW
-        // ISSUE AT HAND IS HAVING THE SPELL RETURNED TO THE LIST AFTER UNPINNING IT
         const updatedSpellOptions = spellList.filter((content) => content !== element)
         setSpellList(updatedSpellOptions)
     }
+
+    // const pinMonster
 
     const unpinContent = (value: PinnedContent) => {
         if (value.contentType === 'spell') {
@@ -98,7 +100,6 @@ const SessionSearchBar = ({}: SessionSearchBarProps) => {
                 }
                 return (!pinnedContent.includes(formattedObj))
             })
-            // console.log('valid', validSpells)
             setFilteredSpellList(filterListFromQuery(validSpells, spellQuery))
         } 
     }, [spellQuery, spellList, pinnedContent])
@@ -107,7 +108,7 @@ const SessionSearchBar = ({}: SessionSearchBarProps) => {
         if (monsterQuery) {
             setFilteredMonsterList(filterListFromQuery(monsterList, monsterQuery))
         }
-    }, [monsterQuery])
+    }, [monsterQuery, monsterList])
 
     return(
         <>
@@ -119,8 +120,6 @@ const SessionSearchBar = ({}: SessionSearchBarProps) => {
                     query={spellQuery}
                     setQuery={setSpellQuery}
                     />
-                    {/* Add component that will open up and show what's available
-                    filter spells based on text field input, `spellQuery` */}
                     {spellQuery &&
                         <List
                             sx={{

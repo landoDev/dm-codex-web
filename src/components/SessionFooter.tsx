@@ -1,11 +1,6 @@
-import { useState } from "react";
-
-import { Modal } from "@mui/material";
-import { PinnedContent } from "../pages/session";
-import { ContentElement, ContentElementContainer, PinnedContentContainer, UnpinElement } from "../styles/SessionFooter.styles";
+import { PinnedContent } from "../components/SessionSearchBar";
+import { ContentElementContainer, PinnedContentContainer, UnpinElement } from "../styles/SessionFooter.styles";
 import CloseIcon from '@mui/icons-material/Close';
-import { ModalContentContainer } from "../styles/ModalTables.styles";
-import PinnedContentModal from "./PinnedContentModal";
 import SpellContentModal from "./SpellModal";
 import MonsterContentModal from "./MonsterModal";
 

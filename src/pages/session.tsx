@@ -16,12 +16,6 @@ interface CharacterPlateType {
     name: string;
     img?: string;
 }
-// NOTE: create type files if they need to be exported and shared
-export type PinnedContent = {
-    contentName: string;
-    contentUrl: string | null; 
-    contentType: string;
-}
 
 const SessionPage = () => {
     // NOTE: Simpler to just have one character table with a flag/column denoting if they are NPC or not
