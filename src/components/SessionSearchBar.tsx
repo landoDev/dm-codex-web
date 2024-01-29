@@ -4,6 +4,7 @@ import { FIFTH_EDITION_API } from "../static/apiConstants";
 import { List, ListItem, ListItemButton, ListItemText, Stack } from "@mui/material";
 import SearchInput from "./SearchInput";
 import { PinnedContent } from "../pages/session";
+import SessionFooter from '../components/SessionFooter';
 
 
 interface FifthEditionResult {
@@ -13,11 +14,14 @@ interface FifthEditionResult {
 };
 
 interface SessionSearchBarProps {
-    pinnedContent: PinnedContent[],
-    setPinnedContent: (value: any) => void;
 };
 
-const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarProps) => {
+const SessionSearchBar = ({}: SessionSearchBarProps) => {
+
+    // pinned content is the spells and monsters the DM has selected to reference on this page.
+        // ideally, this would stick when reloaded but that's stretch as of this commit
+    const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
+
     const [spellList, setSpellList] = useState<FifthEditionResult[]>([]);
     const [spellQuery, setSpellQuery] = useState<string>('');
     const [filteredSpellList, setFilteredSpellList] = useState<FifthEditionResult[]>([]);
@@ -54,6 +58,16 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
         // ISSUE AT HAND IS HAVING THE SPELL RETURNED TO THE LIST AFTER UNPINNING IT
         const updatedSpellOptions = spellList.filter((content) => content !== element)
         setSpellList(updatedSpellOptions)
+    }
+
+    const unpinContent = (value: PinnedContent) => {
+        if (value.contentType === 'spell') {
+            const updatedSpells = [...spellList, {index: value.contentName, name: value.contentName, url: value.contentUrl} as FifthEditionResult]
+            updatedSpells.sort((a, b) => a.name < b.name ? -1 : 1);
+            setSpellList(updatedSpells);
+        } else {
+            // monster later
+        }
     }
 
     useEffect(() => {
@@ -162,6 +176,7 @@ const SessionSearchBar = ({ pinnedContent, setPinnedContent }: SessionSearchBarP
                      }
                 </div>
             </Stack>
+            <SessionFooter pinnedContent={pinnedContent} setPinnedContent={setPinnedContent} onUnpinContent={unpinContent} />
         </>
     )
 };

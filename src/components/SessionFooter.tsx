@@ -12,13 +12,18 @@ import MonsterContentModal from "./MonsterModal";
 interface SessionFooterProps {
     pinnedContent: PinnedContent[],
     setPinnedContent: (value: any) => void;
+    onUnpinContent: (value: PinnedContent) => void;
 }
 
-const SessionFooter = ({ pinnedContent, setPinnedContent }: SessionFooterProps) => {
+const SessionFooter = ({ pinnedContent, setPinnedContent, onUnpinContent }: SessionFooterProps) => {
     const handleUnpinContent = (unpinContent: string) => {
+        const content = pinnedContent.find((v) => v.contentName === unpinContent);
         // remove element by filtering the current pinnedContent list
         const updatedContent = pinnedContent.filter(({ contentName }) => contentName !== unpinContent)
         setPinnedContent(updatedContent);
+        if (content) {
+            onUnpinContent(content);
+        }
     }
     return (
             <PinnedContentContainer className="pinned-container">

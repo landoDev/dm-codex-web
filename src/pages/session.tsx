@@ -9,7 +9,6 @@ import RollTable from '../components/RollTable';
 import SessionSearchBar from '../components/SessionSearchBar';
 
 import { COVER, DAMAGE_SEVERITY, EXHAUSTION, IMPROVIZING_DAMAGE, SETTING_DC, SKILLS } from '../static/screenConstants';
-import SessionFooter from '../components/SessionFooter';
 import { SessionPageContainer } from '../styles/session.styles';
 import ModalTables from '../components/ModalTables';
 
@@ -35,18 +34,13 @@ const SessionPage = () => {
     ])
     const [npcs, setNPCs] = useState<CharacterPlateType[]>([]);
 
-
-    // pinned content is the spells and monsters the DM has selected to reference on this page.
-        // ideally, this would stick when reloaded but that's stretch as of this commit
-    const [pinnedContent, setPinnedContent] = useState<PinnedContent[]>([]); 
-
     return (
         <SessionPageContainer container id="session-page-container" spacing={4}>
             <Grid container id="session-page-body" spacing={4}>
                 <Grid xs>
                     {/* may put this search section in it's owncomponent */}
                     <Grid xs display="flex" justifyContent="flex-end">
-                        <SessionSearchBar pinnedContent={pinnedContent} setPinnedContent={setPinnedContent} />
+                        <SessionSearchBar />
                     </Grid>
                     <Grid display='flex' width='100%' justifyContent='space-between' zIndex={-1}>
                         <Grid width='35%'>
@@ -95,7 +89,6 @@ const SessionPage = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <SessionFooter pinnedContent={pinnedContent} setPinnedContent={setPinnedContent} />
         </SessionPageContainer>
     )
 }
