@@ -5,83 +5,8 @@ import { Modal } from "@mui/material";
 
 import { ContentElement } from "../styles/SessionFooter.styles";
 import { ModalContentContainer } from "../styles/ModalTables.styles";
-
-interface MonsterContentModalProps {
-    contentName: string;
-    url: string | null;
-}
-
-// NOTE: while the props have been designed to hopefully be able to scale with multiple sources, the types below were NOT
-// they were built to work with the 5e D&D api this project relies on initially
-// TODO: help clean this file up by making a separate type file for these
-type Armor = {
-    name: string
-}
-
-type ArmorClassType = {
-    type: string;
-    value: string;
-    armor?: Armor[];
-}
-
-type ProficiencyDetails = {
-    name: string;
-}
-
-type Proficiency = {
-    proficiency: ProficiencyDetails;
-    value: number;
-}
-
-type SpeedType = {
-    walk: string;
-    burrow?: string;
-    climb?: string;
-    fly?: string;
-    swim?: string
-}
-
-type Action = {
-    name: string;
-    desc: string;
-}
-
-type SpecialAbilityUsage = {
-    times: number;
-    type: string;
-}
-
-type SpecialAbility = {
-    name: string;
-    desc: string;
-    usage: SpecialAbilityUsage
-}
-
-interface MonsterContentData {
-    size: string;
-    type: string;
-    subtype?: string;
-    alignment: string;
-    armor_class: ArmorClassType[],
-    hit_points: string;
-    hit_points_roll: string;
-    speed: SpeedType;
-    strength: number;
-    dexterity: number;
-    constitution: number;
-    intelligence: number;
-    wisdom: number;
-    charisma: number;
-    proficiencies: Proficiency[];
-    damage_immunities: [];
-    senses: {[key: string]: number | string} // api returns an object of all passive senses where the key is the sense itself
-    languages: string;
-    challenge_rating: number;
-    xp: number;
-    special_abilities: SpecialAbility[];
-    actions: Action[];
-    legendary_actions: Action[];
-}
+import { MonsterContentModalProps, MonsterContentData } from "../types/MonsterModal.types";
+import { formatSenses, formatChallengeRating, formatAction, formatXP } from "../utils/MonsterModal.utils";
 
 const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => {
     const [openModal, setOpenModal] = useState<boolean>(false);
@@ -96,64 +21,6 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
             .catch(error => console.log(error))
         }
     },[url])
-
-    // UTILS // // Will be moved to it's own file in clean up sweep after stat block is completed
-    const formatSenses = (sensesObj: {[key: string]: number | string} | undefined) => {
-        let formattedString = '';
-        if (sensesObj) {
-            for (const [skillName, modifier] of Object.entries(sensesObj)) {
-                // the API at the time of this code gives us the name of the skill as a key
-                // so split it by it's camel case and make it prettier, then add the formatted modifier
-                formattedString = `${skillName.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")} +${modifier}`
-            }
-        }
-        return formattedString
-    }
-
-    const formatChallengeRating = (cr: number | undefined) => {
-        // we only care if CR is less than 1, those are the only ones that need fractions
-        if (cr) {
-            const formattedCR = cr.toString()
-            if (cr < 1) {
-                // turn the number into its accurate string fraction
-                
-            }
-            return formattedCR
-        } else {
-            // cya case
-            return ''
-        }
-    }
-
-    const formatXP = (xp: number | undefined) => {
-        if (xp) {
-            // if an xp number is passed, turn it to string for formatting
-            let formattedXP = xp.toString()
-            // we only care to add commas if the value is 1000 or more
-            if (xp > 999) {
-                // TODO: what if an xp doesn't end in zeros? need to address that at some point
-                // get the number of commas we'll need 
-                const commaCount = formattedXP.split('').filter(number => number === '0').length / 3
-                // work backwards and update our formatted string as relevant
-                for (let i = commaCount + 1; i > 0; i--) {
-                    // count how far back from the end we need to slice and add a comma in 
-                    const zeroGroups = -(3 * i)
-                    const newFront = formattedXP.slice(0, zeroGroups)
-                    const newKaboose = formattedXP.slice(zeroGroups)
-                    // if not the first loop, add comma
-                    if (newFront) {
-                        formattedXP = `${newFront},${newKaboose}`
-                    }
-                } 
-            }
-            return formattedXP
-        } else {
-            // cya case
-            return ''
-        }
-    }
-
-    // const formatAction = () =>
 
     return (
         <>
@@ -314,7 +181,6 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                         </div>
                         }
                         {/* if monster has immunity */}
-                        {/* TODO: create a format util that capitalizes each word and adds a ',' if it's not the last or only string in the list */}
                         {contentData?.damage_immunities.length !== 0 && 
                         <p><strong>Damage Immunities </strong> {
                             contentData?.damage_immunities.map((type: string) => type.charAt(0).toUpperCase() + type.slice(1))
@@ -335,21 +201,13 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
 
                         </div>
                         <div id="monster-actions">
-                            {contentData?.actions.map(action => {
-                                return (
-                                    <p><strong>{action.name}. </strong> {action.desc}</p>
-                                )
-                            })}
+                            {contentData?.actions.map(action => formatAction(action))}
                         </div>
                         {contentData?.legendary_actions?.length !== 0 &&
                             <div>
                                 <h3>Legendary Actions</h3>
                                 <p>{`${contentName} can take 3 legendary actions, choosing from the options below. Only one action option can be used at a time and only at the end of another creature's turn. ${contentName} regains spent legendary actions at the start of their turn.`}</p>
-                                {contentData?.legendary_actions.map(action => {
-                                    return (
-                                        <p><strong>{action.name}. </strong> {action.desc}</p>
-                                    )
-                                })}
+                                {contentData?.legendary_actions.map(action => formatAction(action))}
                             </div>
                         }
 
