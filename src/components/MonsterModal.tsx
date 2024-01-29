@@ -80,7 +80,7 @@ interface MonsterContentData {
     xp: number;
     special_abilities: SpecialAbility[];
     actions: Action[];
-    legendary_actions: [];
+    legendary_actions: Action[];
 }
 
 const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => {
@@ -341,7 +341,17 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                                 )
                             })}
                         </div>
-                        {/* TODO: Legendary actions if actions add div section */}
+                        {contentData?.legendary_actions?.length !== 0 &&
+                            <div>
+                                <h3>Legendary Actions</h3>
+                                <p>{`${contentName} can take 3 legendary actions, choosing from the options below. Only one action option can be used at a time and only at the end of another creature's turn. ${contentName} regains spent legendary actions at the start of their turn.`}</p>
+                                {contentData?.legendary_actions.map(action => {
+                                    return (
+                                        <p><strong>{action.name}. </strong> {action.desc}</p>
+                                    )
+                                })}
+                            </div>
+                        }
 
                     </div>
                 </ModalContentContainer>
