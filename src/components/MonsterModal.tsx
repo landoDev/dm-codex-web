@@ -28,6 +28,7 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
             <Modal open={openModal} onClose={() => setOpenModal(false)}>
                 <ModalContentContainer>
                     {/* NOTE: this could prob be it's own component then contentData? doesn't need repeated so much */}
+                    {/* TODO: that goes for every div/section in this modal. break them out into their own mini components to make this code cleaner */}
                     <div id="monster-modal-content">
                         <h2>{contentName}</h2>
                         <p>{contentData?.size} {contentData?.type}{contentData?.subtype && `(${contentData.subtype})`}, {contentData?.alignment}</p>
