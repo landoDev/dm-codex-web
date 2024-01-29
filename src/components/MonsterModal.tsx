@@ -74,12 +74,13 @@ interface MonsterContentData {
     charisma: number;
     proficiencies: Proficiency[];
     damage_immunities: [];
-    senses: {[key: string]: number | string} // api returns an object of all passive senses
+    senses: {[key: string]: number | string} // api returns an object of all passive senses where the key is the sense itself
     languages: string;
     challenge_rating: number;
     xp: number;
     special_abilities: SpecialAbility[];
     actions: Action[];
+    legendary_actions: [];
 }
 
 const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => {
@@ -120,7 +121,6 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
             return formattedCR
         } else {
             // cya case
-        
             return ''
         }
     }
@@ -328,12 +328,9 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                         <div id="monster-special-abilities">
                             {/* only some monsters have special abilities like Legendary Resistance */}
                             {contentData?.special_abilities.map(ability => {
-                                if (ability.name === "Legendary Resistance") {
-                                    return (
-                                        <p><strong>{ability.name} {`${ability.usage.times}/${ability.usage.type}`}</strong>. {ability.desc}</p>
-                                    )
-                                }
-                               return ''
+                                return (
+                                    <p><strong>{ability.name}{ability.usage && ` (${ability.usage?.times}/${ability.usage?.type})`}</strong>. {ability.desc}</p>
+                                )
                             })}
 
                         </div>
