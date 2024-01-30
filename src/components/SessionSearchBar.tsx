@@ -38,7 +38,7 @@ const SessionSearchBar = () => {
         return list.filter(({name}) => {
             // creates pattern with positive lookahead, matches any character except line break, and matches 0 or more instances of a character
             const pattern = query.split("").map(x => `(?=.*${x})`).join("")
-            const regex = new RegExp(`${pattern}`, "gi") // global and case insensitive
+            const regex = new RegExp(`${pattern}`, "g") // global and case insensitive
             return name.match(regex)
         })
     }
