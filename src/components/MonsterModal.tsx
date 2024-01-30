@@ -15,7 +15,6 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
         if (url) {
             axios.get(`${FIFTH_EDITION_API}${url}`)
             .then(response => {
-                console.log(response.data)
                 setContentData(response.data)
             })
             .catch(error => console.log(error))
@@ -29,6 +28,7 @@ const MonsterContentModal = ({ contentName, url }: MonsterContentModalProps) => 
                 <ModalContentContainer>
                     {/* NOTE: this could prob be it's own component then contentData? doesn't need repeated so much */}
                     {/* TODO: that goes for every div/section in this modal. break them out into their own mini components to make this code cleaner */}
+                    {/* TODO: add feedback while the data is fetched from the API! */}
                     <div id="monster-modal-content">
                         <h2>{contentName}</h2>
                         <p>{contentData?.size} {contentData?.type}{contentData?.subtype && `(${contentData.subtype})`}, {contentData?.alignment}</p>

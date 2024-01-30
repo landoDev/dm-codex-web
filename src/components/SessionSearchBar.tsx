@@ -33,10 +33,9 @@ const SessionSearchBar = () => {
 
     const filterListFromQuery = (list: FifthEditionResult[], query: string) => {
         /** takes list of string elements and compares them to query string to filter */
-        // TODO: THIS DOESN'T RETURN SANE RESULTS
-        // see if this helps: https://5e-bits.github.io/docs/docs/tutorials/advanced/monster-search-with-javascript
         return list.filter(({name}) => {
             // creates pattern with positive lookahead, matches any character except line break, and matches 0 or more instances of a character
+            // TODO: close enough for MVP but starts to act strange with two word names, come back to it
             const pattern = query.split("").map(x => `(?=.*${x})`).join("")
             const regex = new RegExp(`${pattern}`, "g") // global and case insensitive
             return name.match(regex)
@@ -60,15 +59,24 @@ const SessionSearchBar = () => {
         setSpellList(updatedSpellOptions)
     }
 
-    // const pinMonster
+    const pinMonster = (element: FifthEditionResult) => {
+        handlePinElement(element, "monster")
+        const updatedMonsterOptions = monsterList.filter((content) => content !== element)
+        setMonsterList(updatedMonsterOptions)
+    }
 
     const unpinContent = (value: PinnedContent) => {
+        // spread the existing list, then re-add the element that was removed when it was pinned
+        // then sort them so they end up in alphabetical order as they were
         if (value.contentType === 'spell') {
             const updatedSpells = [...spellList, {index: value.contentName, name: value.contentName, url: value.contentUrl} as FifthEditionResult]
             updatedSpells.sort((a, b) => a.name < b.name ? -1 : 1);
             setSpellList(updatedSpells);
         } else {
-            // monster later
+            // NOTE: this will need a slight refactor if there are more content types added (more than else statement)
+            const updatedMonsters = [...monsterList, {index: value.contentName, name: value.contentName, url: value.contentUrl} as FifthEditionResult]
+            updatedMonsters.sort((a, b) => a.name < b.name ? -1 : 1)
+            setMonsterList(updatedMonsters)
         }
     }
 
@@ -165,7 +173,7 @@ const SessionSearchBar = () => {
                         >
                             {filteredMonsterList?.map((monster: FifthEditionResult) => {
                                 return (
-                                    <ListItemButton key={monster.index} onClick={() => handlePinElement(monster, "monster")}>
+                                    <ListItemButton key={monster.index} onClick={() => pinMonster(monster)}>
                                         <ListItemText>{monster.name}</ListItemText>
                                     </ListItemButton>
                                 )

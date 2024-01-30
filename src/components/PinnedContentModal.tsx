@@ -37,7 +37,6 @@ const PinnedContentModal = ({ contentName, url, type }: PinnedContentModalProps)
         if (url) {
             axios.get(`${FIFTH_EDITION_API}${url}`)
             .then(response => {
-                console.log("url response", response.data)
                 setContentData(response.data)
             })
             .catch(error => console.log(error))
@@ -56,8 +55,6 @@ const PinnedContentModal = ({ contentName, url, type }: PinnedContentModalProps)
             return "th"
         }
     }
-
-    console.log('!!!!!!!!!!', contentData?.components)
 
     return (
         <div>
