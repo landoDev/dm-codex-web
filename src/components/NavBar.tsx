@@ -1,29 +1,16 @@
-import styled from '@emotion/styled'
-import { Avatar, Stack } from '@mui/material'
+import { useAuth0 } from "@auth0/auth0-react";
 
-const NavContainer = styled.div`
-    display: flex;
-    background-color: black;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2;
-`
-const AppTitle = styled.h1`
-    color: white;
-    padding-left: 2%;
-    text-align: center;
-`
-const UserContainer = styled.div`
-    flex-direction: row;
-    padding-right: 2%;
+import { Avatar, Stack } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 
-`
-const DisplayName = styled.p`
-    color: white;
-    text-align: center
-`
+import LoginButton from './Login'
+import LogoutButton from './Logout'
+import { NavContainer, AppTitle, UserContainer, DisplayName } from '../styles/NavBar.styles';
+
 
 const NavBar = () => {
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
     return (
         <NavContainer>
             <AppTitle>Dungeon Master's Codex</AppTitle>
@@ -34,9 +21,21 @@ const NavBar = () => {
                 alignItems="center"
                 spacing={2}
                 >
-                    <Avatar src=""/>
-                    {/* TODO: use Link here to navigate to user details (way off in the distance) */}
-                    <DisplayName>Joe Freebird</DisplayName>
+                    {isLoading &&
+                        <LinearProgress />
+                    }
+                    {!isAuthenticated && !isLoading &&
+                        <LoginButton />
+                    }
+                    {isAuthenticated && !isLoading &&
+                        <>
+                            <Avatar src={user?.picture} />
+                            {/* TODO: add metadata or see what else we can use for display name */}
+                            {/* TODO: use Link here to navigate to user details (way off in the distance) */}
+                            <DisplayName>{user?.name}</DisplayName>
+                            <LogoutButton />
+                        </>
+                    }
                 </Stack>
             </UserContainer>
         </NavContainer>

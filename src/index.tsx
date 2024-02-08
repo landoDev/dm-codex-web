@@ -10,6 +10,8 @@ import {
 } from "react-router-dom"
 import ErrorPage from './error-pages';
 import SessionPage from './pages/session';
+import HomePage from './pages/homepage';
+import Dashboard from './pages/dashboard';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <HomePage />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      },
       {
         path:"/session",
         element: <SessionPage />
@@ -35,7 +45,7 @@ root.render(
         domain="dev-5p-n1lpz.us.auth0.com"
         clientId="dCd6ycQP6AufRk4drrmaA2TVJZBfGT8v"
         authorizationParams={{
-          redirect_uri: window.location.origin
+          redirect_uri: "http://localhost:3000/dashboard"
         }}
     >
       <RouterProvider router={router} />
