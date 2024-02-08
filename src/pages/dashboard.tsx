@@ -33,7 +33,7 @@ const Dashboard = () => {
                 <LoginButton />
             }
             {isAuthenticated && !isLoading &&
-            <>
+            <div className="">
                 <p>Shows {user?.name}'s campaigns and most recent session</p>
                 {/* TODO: after skeleton, break down what should be it's own component */}
                 <div>
@@ -47,7 +47,7 @@ const Dashboard = () => {
                     </Button>
                 </div>
                 <p>Data is protected by Auth0</p>
-            </>
+            </div>
             }
         </div>
     )

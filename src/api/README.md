@@ -14,4 +14,8 @@ I decided on the onset to go ahead and setup the Auth0 SDK
 Auth flow will be handled via that and I will connect the Vercel DB to sync user data for the campaign and session tables.
 A user registers via Auth0 -> then the app updates the db via the clientside api directory here. Now that user can create campaigns and sessions that relate back to their profile, but auth is handled by the much more secure Auth0
 
-If I use Auth0 as the user store, I can use `user_metadata` to save the campaign ids they've created and not have to have a user table in my db at all which will save me space in it...
+There is no user table, instead I use the auth0 user id in the campaign table which is the nexus of all the application data. 
+
+## API File Organization
+database.tsx - the db connection and the table mappings
+campaign.tsx - orm functions for campaigns
