@@ -1,10 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { Button, Skeleton } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import { Skeleton } from "@mui/material";
 
 
 import LoginButton from "../components/Login";
+import CreateCampaignModal from "../components/CreateCampaignModal";
 
 
 const Dashboard = () => {
@@ -17,12 +17,7 @@ const Dashboard = () => {
     // Ask alex or josh maybe, but maybe campaigns can just use the auth0 user_id in their creation
     // ... do I even reaaaaaally need a profiles table. Can I just save the auth- user id to campaigns..
     // user.sub is auth0's user_id in the useAuth0 hook
-    const handleAddCampaign = () => {
-        // this should open the modal with the actual add campaign form, fix the below comments
-        // this will call the logic to the api directory and do stuff with the orm to add to the serverless db
-        // cross that bridge when we get there shortly, gotta decide on the model and the above comments first
-        console.log("say no more")
-    }
+
 
     return (
         <div>
@@ -37,14 +32,7 @@ const Dashboard = () => {
                 <p>Shows {user?.name}'s campaigns and most recent session</p>
                 {/* TODO: after skeleton, break down what should be it's own component */}
                 <div>
-                    <h2>Campaigns</h2>
-                    <Button 
-                    color="success" 
-                    startIcon={<AddIcon />}
-                    onClick={handleAddCampaign}
-                    >
-                        New Campaign
-                    </Button>
+                    <CreateCampaignModal />
                 </div>
                 <p>Data is protected by Auth0</p>
             </div>
