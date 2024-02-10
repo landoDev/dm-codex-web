@@ -4,23 +4,19 @@ import { Skeleton } from "@mui/material";
 
 
 import LoginButton from "../components/Login";
-import CreateCampaignModal from "../components/CreateCampaignModal";
+import CreateCampaign from "../components/CreateCampaignComponent";
 
 
 const Dashboard = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     console.log("USER", user)
     // NOTE: The new workflow with Auth0 handling all user things is not having a user table in the backend
-    // created a user_profiles table
-    // TODO: figure out how to have user creation update the user_profiles table to sync them
-    // https://auth0.com/docs/manage-users/user-accounts/user-profiles this is where you left off.
-    // Ask alex or josh maybe, but maybe campaigns can just use the auth0 user_id in their creation
-    // ... do I even reaaaaaally need a profiles table. Can I just save the auth- user id to campaigns..
+    // I don't need the users name, and I will see if I can configure non-google users to have to put a name in auth0
     // user.sub is auth0's user_id in the useAuth0 hook
 
 
     return (
-        <div>
+        <div className="dashboard-body" style={{ margin: '1%'}}>
             {isLoading && 
                 <Skeleton />
             }
@@ -28,14 +24,23 @@ const Dashboard = () => {
                 <LoginButton />
             }
             {isAuthenticated && !isLoading &&
-            <div className="">
-                <p>Shows {user?.name}'s campaigns and most recent session</p>
-                {/* TODO: after skeleton, break down what should be it's own component */}
-                <div>
-                    <CreateCampaignModal />
+            <>
+                <div>Quick Add Section (just characters, and sessions to start)</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                    {/* TODO: after skeleton, break down what should be it's own component */}
+                    <div style={{ width: '75%' }}>
+                        <h3>My Campaigns</h3>
+                        <div >
+                            <CreateCampaign />
+                        </div>
+                    </div>
+                    <div style={{ width: '50%'}}>
+                        <h3>Recent Sessions</h3>
+                        <p>No Sessions Yet!</p>
+                    </div>
+
                 </div>
-                <p>Data is protected by Auth0</p>
-            </div>
+            </>
             }
         </div>
     )
