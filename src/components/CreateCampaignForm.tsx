@@ -4,6 +4,8 @@ import { Button, TextField } from "@mui/material";
 import { FormControl } from '@mui/base/FormControl';
 
 import React, { useState } from "react";
+import { db } from "../api/database";
+import { NewCampaign, insertCampaign } from "../api/campaign";
 
 
 interface CreateCampaignFormProps {
@@ -17,14 +19,22 @@ type CampaignFormData = {
 
 const CreateCampaignForm = ({ setShowForm }: CreateCampaignFormProps) => {
     const { user } = useAuth0();
-    const [nameValue, setNameValue] = useState<string>('');
-    const [formData, setFormData] = useState<CampaignFormData>({name: '', description: ''})
-    const handleAddCampaign = () => {
-        // this will call the logic to the api directory and do stuff with the orm to add to the serverless db on submission
-        // TODO: import the orm and have it add the campaign to the db (think of middleware)
-        // On successful db saves, then go through and clean up styling of the page
-        console.log("say no more, here's the current user:", user)
-        console.log('FormData', formData)
+    const [formData, setFormData] = useState<CampaignFormData>({name: '', description: ''});
+
+    const handleAddCampaign = (event: any) => {
+        event.preventDefault();
+        if (user) {
+            const newCampaign: NewCampaign = {
+                // reminder that created_at and campaign_id should be handled by db automatically
+                ...formData,
+                user_id: user.sub as string,
+                creator_name: user.name?.length ? user.name : user.email
+            }
+            // FIXME: this is an async fn, it nukes the dashboard page
+            insertCampaign(newCampaign)
+        } else {
+            alert(`Failed to create Campaign ${formData.name}`)
+        }
         setShowForm(false)
     }
 
@@ -36,21 +46,29 @@ const CreateCampaignForm = ({ setShowForm }: CreateCampaignFormProps) => {
     return (
         // next, build out the campaign form from mui components
         // on submit it will call the drizzle orm to add to the db
-        // TODO: fix the form, it doesn't submit due to: Form submission canceled because the form is not connected
+        // TODO: style these components in the cleanup
         <div style={{ display: 'flex' }}>
-            <FormControl style={{ display: 'flex', alignItems: 'center', width: '100%'}} onSubmit={handleAddCampaign}>
+            <form style={{ display: 'flex', alignItems: 'center', width: '100%'}} onSubmit={handleAddCampaign}>
                 <TextField 
-                required 
-                label="Campaign Name" 
-                variant="filled" 
-                onChange={handleChange}
-                type="text"
-                style={{ marginRight: '10px'}} 
+                    required 
+                    name="name"
+                    label="Campaign Name" 
+                    variant="filled" 
+                    onChange={handleChange}
+                    type="text"
+                    style={{ marginRight: '10px'}} 
                 />
-                <TextField multiline label="Description" variant="filled" style={{ marginRight: '10px'}} onChange={handleChange} />
-                <Button style={{ marginRight: '10px'}} type="submit" value="submit">Submit</Button>
+                <TextField  
+                    name="description"
+                    label="Description" 
+                    variant="filled" 
+                    type="text"
+                    onChange={handleChange} 
+                    style={{ marginRight: '10px'}} 
+                />
+                <Button style={{ marginRight: '10px'}} type="submit">Submit</Button>
                 <Button onClick={() => setShowForm(false)}>Cancel</Button>
-            </FormControl>
+            </form>
         </div>
     )
 }
