@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Modal } from "@mui/material";
+
+import { Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 import CreateCampaignForm from "./CreateCampaignForm";
