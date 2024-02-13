@@ -55,5 +55,6 @@
   },
   "devDependencies": {
     "drizzle-kit": "^0.20.14"
-  }
+  },
+  "type": "module"
 }

@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This project is still very much under construction. if you run `npm start`, go to `localhost:3000/session` to see the bulk of the work that's been done.
 Will continue to update, auth0 is implemented in basic fashion. Working on where to have the BE live, will prob do node/mongodb or fastapi/mongodb
 Had to move to `landoDev` for Vercel.. That is what I will host the FE on for sure
-Considering a switch to Netlify to keep all the things in one place
+Vercel has an integration with MongoDB. LFG -> Use this: https://www.youtube.com/watch?v=JIlYroSsInU
 
 
 ## WIP Setup
