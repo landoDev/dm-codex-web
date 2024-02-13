@@ -4,6 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## NOTE
 This project is still very much under construction. if you run `npm start`, go to `localhost:3000/session` to see the bulk of the work that's been done.
+Will continue to update, auth0 is implemented in basic fashion. Working on where to have the BE live, will prob do node/mongodb or fastapi/mongodb
+Had to move to `landoDev` for Vercel..
+
 ## WIP Setup
     1. run `npm i`
 
