@@ -13,7 +13,7 @@ const NavBar = () => {
 
     return (
         <NavContainer>
-            <AppTitle>Dungeon Master's Codex</AppTitle>
+            <AppTitle>Dungeon Master Codex</AppTitle>
             <UserContainer>
                 <Stack 
                 direction="row" 
