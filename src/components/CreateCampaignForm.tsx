@@ -1,12 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Button, TextField } from "@mui/material";
-import { FormControl } from '@mui/base/FormControl';
 
 import React, { useState } from "react";
-import { db } from "../api/database";
-import { NewCampaign, insertCampaign } from "../api/campaign";
-
 
 interface CreateCampaignFormProps {
     setShowForm: (value: boolean) => void;
@@ -24,14 +20,13 @@ const CreateCampaignForm = ({ setShowForm }: CreateCampaignFormProps) => {
     const handleAddCampaign = (event: any) => {
         event.preventDefault();
         if (user) {
-            const newCampaign: NewCampaign = {
+            const newCampaign: any = {
                 // reminder that created_at and campaign_id should be handled by db automatically
                 ...formData,
                 user_id: user.sub as string,
                 creator_name: user.name?.length ? user.name : user.email
             }
-            // FIXME: this is an async fn, it nukes the dashboard page
-            insertCampaign(newCampaign)
+
         } else {
             alert(`Failed to create Campaign ${formData.name}`)
         }
