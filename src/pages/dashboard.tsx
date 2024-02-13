@@ -5,11 +5,14 @@ import { Skeleton } from "@mui/material";
 
 import LoginButton from "../components/Login";
 import CreateCampaign from "../components/CreateCampaignComponent";
+import axios from "axios";
 
 
 const Dashboard = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     console.log("USER", user)
+    // TODO: figure out how to access the serverless function in netlify. or go back to vercel lol
+    // axios.get("http://localhost:3000/.netlify/functions/api").then(res=> console.log(res))
     // NOTE: The new workflow with Auth0 handling all user things is not having a user table in the backend
     // I don't need the users name, and I will see if I can configure non-google users to have to put a name in auth0
     // user.sub is auth0's user_id in the useAuth0 hook
