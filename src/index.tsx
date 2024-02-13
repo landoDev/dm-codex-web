@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -9,6 +10,8 @@ import {
 } from "react-router-dom"
 import ErrorPage from './error-pages';
 import SessionPage from './pages/session';
+import HomePage from './pages/homepage';
+import Dashboard from './pages/dashboard';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +19,14 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <HomePage />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      },
       {
         path:"/session",
         element: <SessionPage />
@@ -29,7 +40,16 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Auth0Provider
+    // TODO: ENV var these
+        domain="dev-5p-n1lpz.us.auth0.com"
+        clientId="dCd6ycQP6AufRk4drrmaA2TVJZBfGT8v"
+        authorizationParams={{
+          redirect_uri: "http://localhost:3000/dashboard"
+        }}
+    >
+      <RouterProvider router={router} />
+    </Auth0Provider>
   </React.StrictMode>
 );
 

@@ -1,6 +1,4 @@
-import { Modal } from "@mui/material";
-import { InfoTable, ModalTablesContainer } from "../styles/ModalTables.styles";
-import { useState } from "react";
+import { ModalTablesContainer } from "../styles/ModalTables.styles";
 import ActionsInCombat from "./ActionsInCombat";
 import Conditions from "./Conditions";
 import CommonExpenses from "./CommonExpenses";
