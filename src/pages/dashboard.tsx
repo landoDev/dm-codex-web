@@ -28,7 +28,7 @@ const Dashboard = () => {
                 <Skeleton />
             }
             {!isAuthenticated && !isLoading &&
-            // make this homepage component
+            // make this homepage component, will involve updating the callback uri and changing /dashboard to just be "/" which is just fine I think
                 <LoginButton />
             }
             {isAuthenticated && !isLoading &&
