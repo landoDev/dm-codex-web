@@ -10,23 +10,29 @@ import axios from "axios";
 
 const Dashboard = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
-    console.log("USER", user)
+    console.log("USER", user);
     // WE HAVE SERVERLESS!!!!
-    // axios.get("http://localhost:3000/api/health").then(res=> console.log(res))
+    // axios.get("http://localhost:3000/api/health").then(res=> console.log(res));
     // NOTE: The new workflow with Auth0 handling all user things is not having a user table in the backend
     // I don't need the users name, and I will see if I can configure non-google users to have to put a name in auth0
     // user.sub is auth0's user_id in the useAuth0 hook
+    // NOTE: ignore that top note if auth0 doesn't let me set the users name on register
+    
+
+    // TODO: Consider making this the homepage/dashboard conditionally upon if user is logged in. less files and moving parts.
 
 
     return (
-        <div className="dashboard-body" style={{ margin: '1%'}}>
+        <div className="dashboard-body" style={{ margin: '1%' }}>
             {isLoading && 
                 <Skeleton />
             }
             {!isAuthenticated && !isLoading &&
+            // make this homepage component
                 <LoginButton />
             }
             {isAuthenticated && !isLoading &&
+            // make this dashboard component
             <>
                 <div>Quick Add Section (just characters, and sessions to start)</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
