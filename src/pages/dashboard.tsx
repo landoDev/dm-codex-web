@@ -12,7 +12,7 @@ const Dashboard = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     console.log("USER", user);
     // WE HAVE SERVERLESS!!!!
-    // axios.get("http://localhost:3000/api/health").then(res=> console.log(res));
+    axios.get("http://localhost:3000/api/health").then(res=> console.log(res));
     // NOTE: The new workflow with Auth0 handling all user things is not having a user table in the backend
     // I don't need the users name, and I will see if I can configure non-google users to have to put a name in auth0
     // user.sub is auth0's user_id in the useAuth0 hook
