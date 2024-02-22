@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 const uri = process.env.MONGODB_URI;
 const options = {};
 
-let mongoClient: MongoClient; // this becomes our cached connection
+let mongoClient; // this becomes our cached connection
 
 export async function connectToDatabase(){
     if (uri) {
